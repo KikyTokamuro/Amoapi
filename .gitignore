@@ -1,5 +1,4 @@
 composer.lock
 todo.md
 vendor/
-tests/Cases/DaniilArch/Amoapi/Client/AmoapiClientTest.php
 .phpunit.result.cache
