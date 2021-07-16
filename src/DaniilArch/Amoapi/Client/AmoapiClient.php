@@ -5,6 +5,7 @@ namespace Amoapi\Client;
 use Amoapi\OAuth\AmoapiOAuth;
 use Amoapi\Models\LeadModel;
 use Amoapi\Models\TaskModel;
+use Amoapi\Models\ContactModel;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -35,5 +36,15 @@ class AmoapiClient extends AmoapiOAuth
     public function tasks(): TaskModel
     {
         return new TaskModel($this->apiUri, $this->accessToken);
+    }
+    
+    /**
+     * Get contacts
+     *
+     * @return ContactModel
+     */
+    public function contacts(): ContactModel
+    {
+        return new ContactModel($this->apiUri, $this->accessToken);
     }
 }
