@@ -67,6 +67,17 @@ class LeadModel
      */
     public function update(array $leads): array
     {
+        return $this->httpClient->request("PATCH", $this->apiUri, $leads, $this->headers);
+    }
+
+    /**
+     * Create new lead
+     *
+     * @param  array $leads
+     * @return array
+     */
+    public function createNew(array $leads): array
+    {
         return $this->httpClient->request("POST", $this->apiUri, $leads, $this->headers);
     }
     
