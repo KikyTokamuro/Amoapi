@@ -1,0 +1,30 @@
+{
+    "name": "daniilarch/amoapi",
+    "description": "Lib for AMOCRM API",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Amoapi\\": "src/DaniilArch",
+            "Amoapi\\Client\\": "src/DaniilArch/Amoapi/Client",
+            "Amoapi\\Http\\": "src/DaniilArch/Amoapi/Http",
+            "Amoapi\\OAuth\\": "src/DaniilArch/Amoapi/OAuth",
+            "Amoapi\\Models\\": "src/DaniilArch/Amoapi/Models"
+        }
+    },
+    "authors": [
+        {
+            "name": "DaniilArch",
+            "email": "a.daniil@f5.com.ru"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit -c phpunit.xml"
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.0"
+    }
+}
