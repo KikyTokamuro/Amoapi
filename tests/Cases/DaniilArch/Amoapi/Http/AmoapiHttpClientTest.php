@@ -14,6 +14,6 @@ class AmoapiHttpClientTest extends TestCase
 
     public function testPost(): void
     {
-        $this->assertArrayHasKey("error", $this->httpClient->post("/api/blabla", [], []));
+        $this->assertArrayHasKey("error", $this->httpClient->request("POST", "/api/blabla", [], []));
     }
 }
