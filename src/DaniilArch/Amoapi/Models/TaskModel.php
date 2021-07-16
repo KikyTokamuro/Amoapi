@@ -4,8 +4,8 @@ namespace Amoapi\Models;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class LeadModel
-{    
+class TaskModel
+{
     /**
      * @var Amoapi\Http\AmoapiHttpClient
      */
@@ -14,7 +14,7 @@ class LeadModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/leads";
+    private $apiUri = "/api/v4/tasks";
 
     /**
      * @var array
@@ -25,7 +25,7 @@ class LeadModel
     ];
     
     /**
-     * LeadModel construct
+     * TaskModel construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -38,7 +38,7 @@ class LeadModel
     }
     
     /**
-     * Get all leads
+     * Get all tasks
      *
      * @return array
      */
@@ -49,42 +49,15 @@ class LeadModel
             "limit" => $limit,
         ], $this->headers);
     }
-    
+        
     /**
-     * Get lead by id
+     * Create new task
      *
-     * @param  int $id
+     * @param  mixed $task
      * @return array
      */
-    public function getById(int $id): array
+    public function createNew(array $task): array
     {
-        return $this->httpClient->request("GET", "{$this->apiUri}/{$id}", [], $this->headers);
-    }
-    
-    /**
-     * Update lead
-     *
-     * @param  array $leads
-     * @return array
-     */
-    public function update(array $leads): array
-    {
-        return $this->httpClient->request("POST", $this->apiUri, $leads, $this->headers);
-    }
-    
-    /**
-     * Add note to lead by id
-     *
-     * @param  int $id
-     * @param  string $text
-     * @param  string $type
-     * @return array
-     */
-    public function addNoteById(int $id, string $text, string $type = "common"): array
-    {
-        return $this->httpClient->request("POST", "{$this->apiUri}/{$id}/notes", [[
-            "text" => $text,
-            "note_type" => $type
-        ]], $this->headers);
+        return $this->httpClient->request("POST", $this->apiUri, [$task], $this->headers);
     }
 }
