@@ -19,7 +19,9 @@ class AmoapiClientTest extends TestCase
 
     public function testLeadsGetAll(): void
     {
-        $this->assertArrayHasKey("error", $this->client->leads()->getAll(1, 5));
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->leads()->getAll($filter));
     }
 
     public function testLeadsGetById(): void
@@ -43,7 +45,9 @@ class AmoapiClientTest extends TestCase
 
     public function testTasksGetAll(): void
     {
-        $this->assertArrayHasKey("error", $this->client->tasks()->getAll(0, 50));
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->tasks()->getAll($filter));
     }
 
     public function testTasksCreateNew(): void
