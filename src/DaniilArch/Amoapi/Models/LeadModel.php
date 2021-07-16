@@ -40,14 +40,12 @@ class LeadModel
     /**
      * Get all leads
      *
+     * @param  array $filter
      * @return array
      */
-    public function getAll(int $page, int $limit): array
+    public function getAll(array $filter): array
     {
-        return $this->httpClient->request("GET", $this->apiUri, [
-            "page" => $page,
-            "limit" => $limit,
-        ], $this->headers);
+        return $this->httpClient->request("GET", $this->apiUri, $filter, $this->headers);
     }
     
     /**
