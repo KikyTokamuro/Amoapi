@@ -51,7 +51,7 @@ class TaskModel
     /**
      * Create new task
      *
-     * @param  mixed $task
+     * @param  array $task
      * @return array
      */
     public function createNew(array $task): array
