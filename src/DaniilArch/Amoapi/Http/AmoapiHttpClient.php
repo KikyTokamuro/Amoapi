@@ -60,33 +60,16 @@ class AmoapiHttpClient
     }
    
     /**
-     * Send post request and recive response
+     * Send request and recive response
      *
+     * @param  string $method
      * @param  string $uri
      * @param  array $jsonBody
      * @return array
      */
-    public function post(string $uri, array $jsonBody, array $headers): array
+    public function request(string $method, string $uri, array $jsonBody, array $headers): array
     {
-        $response = $this->httpClient->request("POST", $uri, [
-            "headers" => $headers,
-            "json" => $jsonBody
-        ]);
-
-        return $this->checkResponse($response);
-    }
-    
-    /**
-     * Send get request and recive response
-     *
-     * @param  string $uri
-     * @param  array $jsonBody
-     * @param  array $headers
-     * @return array
-     */
-    public function get(string $uri, array $jsonBody, array $headers): array
-    {
-        $response = $this->httpClient->request("GET", $uri, [
+        $response = $this->httpClient->request($method, $uri, [
             "headers" => $headers,
             "json" => $jsonBody
         ]);
