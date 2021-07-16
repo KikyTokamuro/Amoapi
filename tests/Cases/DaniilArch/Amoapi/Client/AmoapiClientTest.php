@@ -29,12 +29,17 @@ class AmoapiClientTest extends TestCase
         $this->assertArrayHasKey("error", $this->client->leads()->getById(28091207));
     }
 
-    public function testLeadsCreateNewOrUpdate(): void
+    public function testLeadsUpdate(): void
     {
         $this->assertArrayHasKey("error", $this->client->leads()->update([
-            [
-                "name" => "test",
-            ]
+            ["name" => "test"]
+        ]));
+    }
+
+    public function testLeadsCreateNew(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->leads()->createNew([
+            ["name" => "test"]
         ]));
     }
 
@@ -62,5 +67,36 @@ class AmoapiClientTest extends TestCase
         ];
 
         $this->assertArrayHasKey("error", $this->client->tasks()->createNew($task));
+    }
+
+    public function testContactsGetAll(): void
+    { 
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->contacts()->getAll($filter));
+    }
+
+    public function testContactsGetById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->contacts()->getById(28091207));
+    }
+
+    public function testContactsUpdate(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->contacts()->update([
+            ["name" => "test"]
+        ]));
+    }
+
+    public function testContactsCreateNew(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->contacts()->createNew([
+            ["name" => "test"]
+        ]));
+    }
+
+    public function testContactsAddNoteById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->contacts()->addNoteById(28091207, "Test note"));
     }
 }
