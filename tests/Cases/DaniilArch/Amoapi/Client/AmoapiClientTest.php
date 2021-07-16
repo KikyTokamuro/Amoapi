@@ -40,4 +40,23 @@ class AmoapiClientTest extends TestCase
     {
         $this->assertArrayHasKey("error", $this->client->leads()->addNoteById(28091207, "Test note"));
     }
+
+    public function testTasksGetAll(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->tasks()->getAll(0, 50));
+    }
+
+    public function testTasksCreateNew(): void
+    {
+        $task = [
+            "task_type_id" => 1,
+            "text" => "Test task for 28144531",
+            "complete_till" => 1588885140,
+            "entity_id" => 28144531,
+            "entity_type" => "leads",
+            "request_id" => "example"
+        ];
+
+        $this->assertArrayHasKey("error", $this->client->tasks()->createNew($task));
+    }
 }
