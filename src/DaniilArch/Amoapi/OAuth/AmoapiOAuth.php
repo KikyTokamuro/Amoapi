@@ -119,7 +119,7 @@ class AmoapiOAuth
      */
     public function getTokensByCode(string $clientCode): array
     {
-        $jsonResp = $this->httpClient->post($this->tokenUri, [
+        $jsonResp = $this->httpClient->request("POST", $this->tokenUri, [
             "client_id" => $this->clientId,
             "client_secret" => $this->clientSecret,
             "grant_type" => "authorization_code",
@@ -142,7 +142,7 @@ class AmoapiOAuth
      */
     public function getTokensByRefreshToken(string $refreshToken): array
     {
-        $jsonResp = $this->httpClient->post($this->tokenUri, [
+        $jsonResp = $this->httpClient->request("POST", $this->tokenUri, [
             "client_id" => $this->clientId,
             "client_secret" => $this->clientSecret,
             "grant_type" => "refresh_token",
