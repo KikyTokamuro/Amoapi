@@ -9,7 +9,6 @@ Tiny lib for amoCRM API
 - [Tokens](#markdown-header-tokens)
     - [Get access and refresh tokens by code](#markdown-header-get-access-and-refresh-tokens-by-code)
     - [Get access and refresh tokens by refresh token](#markdown-header-get-access-and-refresh-tokens-by-refresh-token)
-    - [Manual installation of tokens](#markdown-header-manual-installation-of-tokens)
 - [Leads](#markdown-header-leads)
     - [Get all leads](#markdown-header-get-5-leads-from-1-page)
     - [Get lead by id](#markdown-header-get-lead-by-id)
@@ -35,6 +34,25 @@ Tiny lib for amoCRM API
 # Examples
 
 ## Tokens
+
+When receiving tokens, they are written to "config.json".
+
+Which can be set via:
+```php
+$client->setConfig('config_file')
+```
+
+config.json:
+```json
+{
+    "access_token":"access_token",
+    "refresh_token":"refresh_token",
+    "expires_in":86400,
+    "receipt_date":1626683782,
+    "expires_date":1626770182
+}
+```
+
 ### Get access and refresh tokens by code
 ```php
 use Amoapi\Client\AmoapiClient;
@@ -71,22 +89,6 @@ if (!array_key_exists("error", $tokens)) {
 }
 ```
 
-### Manual installation of tokens
-```php
-use Amoapi\Client\AmoapiClient;
-
-$client = new AmoapiClient(
-    "subdomain", 
-    "client_id",
-    "client_secret",
-    "redirect_url",
-);
-
-$client->setAccessToken("access_token");
-
-$client->setRefreshToken("refresh_token");
-```
-
 ## Leads
 ### Get 5 leads from 1 page
 ```php
@@ -99,7 +101,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $filter = [
     "page" => 0,
@@ -124,7 +126,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");;
 
 $lead = $client->leads()->getById(28091207); // array
 
@@ -144,7 +146,8 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
+
 $lead = $client->leads()->getById(28091207); // array
 
 if (!array_key_exists("error", $lead)) {
@@ -166,7 +169,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $lead = [["name" => "new lead", "price" => 1111]];
 
@@ -184,7 +187,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 print_r(client->leads()->addNoteById(28091207, "Test note"))
 ```
@@ -201,7 +204,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $filter = [
     "page" => 0,
@@ -226,7 +229,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $task = [
     "task_type_id" => 1,
@@ -252,7 +255,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $filter = [
     "page" => 0,
@@ -277,7 +280,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $contact = $client->contacts()->getById(45552657); // array
 
@@ -297,7 +300,8 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
+
 $contact = $client->contact()->getById(28091207); // array
 
 if (!array_key_exists("error", $contact)) {
@@ -319,7 +323,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $contact = [["name" => "new contact"]];
 
@@ -337,7 +341,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 print_r(client->contacts()->addNoteById(28091207, "Test note"))
 ```
@@ -354,7 +358,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $filter = [
     "page" => 0,
@@ -379,7 +383,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 $company = $client->companies()->getById(45607457); // array
 
@@ -399,7 +403,8 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
+
 $company = $client->companies()->getById(45607457); // array
 
 if (!array_key_exists("error", $company)) {
@@ -420,7 +425,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");;
 
 $company = [["name" => "new company"]];
 
@@ -438,7 +443,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->setAccessToken("access_token");
+$client->getTokensByCode("code");
 
 print_r(client->companies()->addNoteById(45607457, "Test note"))
 ```
