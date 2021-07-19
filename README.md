@@ -9,6 +9,7 @@ Tiny lib for amoCRM API
 - [Tokens](#tokens)
     - [Get access and refresh tokens by code](#get-access-and-refresh-tokens-by-code)
     - [Get access and refresh tokens by refresh token](#get-access-and-refresh-tokens-by-refresh-token)
+    - [Manual installation of tokens](#manual-installation-of-tokens)
 - [Leads](#leads)
     - [Get all leads](#get-5-leads-from-1-page)
     - [Get lead by id](#get-lead-by-id)
@@ -24,6 +25,12 @@ Tiny lib for amoCRM API
     - [Update contact](#update-contact)
     - [Create new contact](#create-new-contact)
     - [Add note to contact by id](#add-note-to-contact-by-id)
+- [Companies](#companies)
+    - [Get all companies](#get-all-companies)
+    - [Get company by id](#get-company-by-id)
+    - [Update company](#update-company)
+    - [Create new company](#create-new-company)
+    - [Add note to company by id](#add-note-to-company-by-id)
 
 # Examples
 
@@ -62,6 +69,22 @@ $tokens = $client->getTokensByRefreshToken("refreshToken"); // array
 if (!array_key_exists("error", $tokens)) {
     print_r($tokens);
 }
+```
+
+### Manual installation of tokens
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->setAccessToken("access_token");
+
+$client->setRefreshToken("refresh_token");
 ```
 
 ## Leads
@@ -317,4 +340,105 @@ $client = new AmoapiClient(
 $client->setAccessToken("access_token");
 
 print_r(client->contacts()->addNoteById(28091207, "Test note"))
+```
+
+## Companies
+### Get all companies
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->setAccessToken("access_token");
+
+$filter = [
+    "page" => 0,
+    "limit" => 50
+];
+
+$companies = $client->companies()->getAll($filter); // array
+
+if (!array_key_exists("error", $companies)) {
+    print_r($companies);
+}
+```
+
+### Get company by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->setAccessToken("access_token");
+
+$company = $client->companies()->getById(45607457); // array
+
+if (!array_key_exists("error", $company)) {
+    print_r($company);
+}
+```
+
+### Update company
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->setAccessToken("access_token");
+$company = $client->companies()->getById(45607457); // array
+
+if (!array_key_exists("error", $company)) {
+    $company["name"] = "update company";
+
+    print_r($client->companies()->update([$contact])); // array
+}
+```
+
+### Create new company
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->setAccessToken("access_token");
+
+$company = [["name" => "new company"]];
+
+print_r(client->companies()->createNew($company)); // array
+```
+
+### Add note to company by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->setAccessToken("access_token");
+
+print_r(client->companies()->addNoteById(45607457, "Test note"))
 ```
