@@ -14,6 +14,9 @@ class AmoapiHttpClientTest extends TestCase
 
     public function testPost(): void
     {
-        $this->assertArrayHasKey("error", $this->httpClient->request("POST", "/api/v4/companies", [], []));
+        $this->assertArrayHasKey("error", $this->httpClient->request("POST", "/api/v4/companies", [], [
+            "User-Agent" => "amoCRM/oAuth Client 1.0",
+            "Content-Type" => "application/json" 
+        ]));
     }
 }
