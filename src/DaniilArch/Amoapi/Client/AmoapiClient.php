@@ -18,7 +18,21 @@ class AmoapiClient extends AmoapiOAuth
     ){
         parent::__construct($subdomain, $clientId, $clientSecret, $redirectUri);
     }
-    
+        
+    /**
+     * Check tokens for expire
+     *
+     * @return void
+     */
+    private function checkTokens(): void
+    {
+        if (array_key_exists("expire_date", $this->jsonConfig)) {
+            if (time() >= $this->jsonConfig["expire_date"]) {
+                $this->getTokensByRefreshToken($this->jsonConfig["refresh_token"]);
+            }
+        }
+    }
+
     /**
      * Get leads
      *
@@ -26,6 +40,7 @@ class AmoapiClient extends AmoapiOAuth
      */
     public function leads(): LeadModel
     {
+        $this->checkTokens();
         return new LeadModel($this->apiUri, $this->accessToken);
     }
     
@@ -36,6 +51,7 @@ class AmoapiClient extends AmoapiOAuth
      */
     public function tasks(): TaskModel
     {
+        $this->checkTokens();
         return new TaskModel($this->apiUri, $this->accessToken);
     }
     
@@ -46,6 +62,7 @@ class AmoapiClient extends AmoapiOAuth
      */
     public function contacts(): ContactModel
     {
+        $this->checkTokens();
         return new ContactModel($this->apiUri, $this->accessToken);
     }
     
@@ -56,6 +73,7 @@ class AmoapiClient extends AmoapiOAuth
      */
     public function companies(): CompanyModel
     {
+        $this->checkTokens();
         return new CompanyModel($this->apiUri, $this->accessToken);
     }
 }
