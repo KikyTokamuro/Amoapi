@@ -10,7 +10,7 @@ class AmoapiClientTest extends TestCase
     public function setUp(): void
     {
         $this->client = new AmoapiClient(
-            "domain", 
+            "dlatestov", 
             "id",
             "secret",
             "redirect_uri",
@@ -31,9 +31,10 @@ class AmoapiClientTest extends TestCase
 
     public function testLeadsUpdate(): void
     {
-        $this->assertArrayHasKey("error", $this->client->leads()->update([
-            ["name" => "test"]
-        ]));
+        $lead = $this->client->leads()->getById(28091207);
+        $lead["name"] = "test";
+
+        $this->assertArrayHasKey("error", $this->client->leads()->update([$lead]));
     }
 
     public function testLeadsCreateNew(): void
@@ -83,9 +84,10 @@ class AmoapiClientTest extends TestCase
 
     public function testContactsUpdate(): void
     {
-        $this->assertArrayHasKey("error", $this->client->contacts()->update([
-            ["name" => "test"]
-        ]));
+        $contact = $this->client->contacts()->getById(28091207);
+        $contact["name"] = "test";
+
+        $this->assertArrayHasKey("error", $this->client->contacts()->update([$contact]));
     }
 
     public function testContactsCreateNew(): void
@@ -98,5 +100,37 @@ class AmoapiClientTest extends TestCase
     public function testContactsAddNoteById(): void
     {
         $this->assertArrayHasKey("error", $this->client->contacts()->addNoteById(28091207, "Test note"));
+    }
+
+    public function testCompaniesGetAll(): void
+    {
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->companies()->getAll($filter));
+    }
+
+    public function testCompaniesGetById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->companies()->getById(45607457));
+    }
+
+    public function testCompaniesUpdate(): void
+    {
+        $company = $this->client->companies()->getById(45607457);
+        $company["name"] = "test";
+
+        $this->assertArrayHasKey("error", $this->client->companies()->update([$company]));
+    }
+
+    public function testCompaniesCreateNew(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->companies()->createNew([
+            ["name" => "test company"]
+        ]));
+    }
+
+    public function testCompaniesAddNoteById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->companies()->addNoteById(45607457, "Test note"));
     }
 }
