@@ -9,11 +9,11 @@ class AmoapiHttpClientTest extends TestCase
 
     public function setUp(): void
     {
-        $this->httpClient = new AmoapiHttpClient("http://test.amocrm.ru/");
+        $this->httpClient = new AmoapiHttpClient("http://dlatestov.amocrm.ru/");
     }
 
     public function testPost(): void
     {
-        $this->assertArrayHasKey("error", $this->httpClient->request("POST", "/api/blabla", [], []));
+        $this->assertArrayHasKey("error", $this->httpClient->request("POST", "/api/v4/companies", [], []));
     }
 }
