@@ -28,6 +28,16 @@ class AmoapiOAuth
         "User-Agent" => "amoCRM/oAuth Client 1.0",
         "Content-Type" => "application/json" 
     ];
+    
+    /**
+     * @var string
+     */
+    protected $config = "./tokens.json";
+    
+    /**
+     * @var array
+     */
+    protected $jsonConfig = [];
 
     /**
      * @var string
@@ -95,9 +105,36 @@ class AmoapiOAuth
         $this->redirectUri = $redirectUri;
         $this->apiUri = "{$this->protocol}{$subdomain}.{$this->baseDomain}";
 
+        if (file_exists($this->config)) {
+            $configString = file_get_contents($this->config);
+            $this->jsonConfig = json_decode($configString, true);
+
+            $this->accessToken = $this->jsonConfig["access_token"];
+            $this->refreshToken = $this->jsonConfig["refresh_token"];
+            $this->tokenExpire = $this->jsonConfig["expires_in"];
+        }
+
         $this->httpClient = new AmoapiHttpClient($this->apiUri);
     }
-            
+                
+    /**
+     * Write config file
+     *
+     * @return void
+     */
+    private function writeConfig(): void
+    {
+        $this->jsonConfig = [
+            "access_token" => $this->accessToken,
+            "refresh_token" => $this->refreshToken,
+            "expires_in" => $this->tokenExpire,
+            "receipt_date" => time(),
+            "expires_date" => time() + $this->tokenExpire
+        ];
+
+        file_put_contents($this->config, json_encode($this->jsonConfig));
+    }
+
     /**
      * Setup tokens from json
      *
@@ -109,6 +146,8 @@ class AmoapiOAuth
         $this->accessToken = $jsonResp["access_token"];
         $this->refreshToken = $jsonResp["refresh_token"];
         $this->tokenExpire = $jsonResp["expires_in"];
+
+        $this->writeConfig();
     }
 
     /**
@@ -156,27 +195,26 @@ class AmoapiOAuth
 
         return $jsonResp;
     }
-    
+        
     /**
-     * setAccessToken
+     * getConfig
      *
-     * @param  string $accessToken
-     * @return void
+     * @return string
      */
-    public function setAccessToken(string $accessToken): void
+    public function getConfig(): string
     {
-        $this->accessToken = $accessToken;
+        return $this->config;
     }
     
     /**
-     * setRefreshToken
+     * setConfig
      *
-     * @param  string $refreshToken
+     * @param  string $config
      * @return void
      */
-    public function setRefreshToken(string $refreshToken): void
+    public function setConfig(string $config): void
     {
-        $this->refreshToken = $refreshToken;
+        $this->config = $config;
     }
 
     /**
