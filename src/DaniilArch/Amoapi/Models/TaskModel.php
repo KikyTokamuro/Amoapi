@@ -38,7 +38,7 @@ class TaskModel
     }
     
     /**
-     * getAll
+     * Get all tasks
      *
      * @param  array $filter
      * @return array
@@ -47,7 +47,7 @@ class TaskModel
     {
         return $this->httpClient->request("GET", $this->apiUri, $filter, $this->headers);
     }
-        
+
     /**
      * Create new task
      *
