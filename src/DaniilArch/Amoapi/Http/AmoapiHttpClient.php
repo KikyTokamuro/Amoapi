@@ -21,7 +21,7 @@ class AmoapiHttpClient
     {
         $this->httpClient = new Client([
             'base_uri' => $domain,
-            'timeout'  => 1.0,
+            'timeout'  => 3.0,
             'http_errors' => false
         ]);
     }
