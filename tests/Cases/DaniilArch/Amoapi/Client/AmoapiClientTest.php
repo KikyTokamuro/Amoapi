@@ -165,4 +165,16 @@ class AmoapiClientTest extends TestCase
     {
         $this->assertArrayHasKey("error", $this->client->customers()->addNoteById(183665, "Test note"));
     }
+
+    public function testUsersGetAll(): void
+    {
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->users()->getAll($filter));
+    }
+
+    public function testUsersGetById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->users()->getById(6928032));
+    }
 }
