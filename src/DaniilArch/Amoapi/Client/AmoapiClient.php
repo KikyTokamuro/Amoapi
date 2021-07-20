@@ -7,6 +7,7 @@ use Amoapi\Models\LeadModel;
 use Amoapi\Models\TaskModel;
 use Amoapi\Models\ContactModel;
 use Amoapi\Models\CompanyModel;
+use Amoapi\Models\CustomerModel;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -75,5 +76,16 @@ class AmoapiClient extends AmoapiOAuth
     {
         $this->checkTokens();
         return new CompanyModel($this->apiUri, $this->accessToken);
+    }
+    
+    /**
+     * Get customers
+     *
+     * @return CustomerModel
+     */
+    public function customers(): CustomerModel
+    {
+        $this->checkTokens();
+        return new CustomerModel($this->apiUri, $this->accessToken);
     }
 }
