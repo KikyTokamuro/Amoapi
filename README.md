@@ -30,6 +30,12 @@ Tiny lib for amoCRM API
     - [Update company](#markdown-header-update-company)
     - [Create new company](#markdown-header-create-new-company)
     - [Add note to company by id](#markdown-header-add-note-to-company-by-id)
+- [Customers](#markdown-header-customers)
+    - [Get all customers](#markdown-header-get-all-customers)
+    - [Get customer by id](#markdown-header-get-customer-by-id)
+    - [Update customer](#markdown-header-update-customer)
+    - [Create new customer](#markdown-header-create-new-customer)
+    - [Add note to customer by id](#markdown-header-add-note-to-customer-by-id)
 
 # Examples
 
@@ -446,4 +452,106 @@ $client = new AmoapiClient(
 $client->getTokensByCode("code");
 
 print_r(client->companies()->addNoteById(45607457, "Test note"))
+```
+
+## Customers
+### Get all customers
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$filter = [
+    "page" => 0,
+    "limit" => 50
+];
+
+$customers = $client->customers()->getAll($filter); // array
+
+if (!array_key_exists("error", $customers)) {
+    print_r($customers);
+}
+```
+
+### Get customer by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$customer = $client->customers()->getById(183435); // array
+
+if (!array_key_exists("error", $customer)) {
+    print_r($customer);
+}
+```
+
+### Update customer
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$customer = $client->customers()->getById(183435); // array
+
+if (!array_key_exists("error", $customer)) {
+    $customer["name"] = "update customer";
+
+    print_r($client->customers()->update([$customer])); // array
+}
+```
+
+### Create new customer
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");;
+
+$customer = [["name" => "new company"]];
+
+print_r(client->customers()->createNew($customer)); // array
+```
+
+### Add note to customer by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+print_r(client->customers()->addNoteById(183435, "Test note"));
 ```
