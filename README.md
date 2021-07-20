@@ -36,6 +36,9 @@ Tiny lib for amoCRM API
     - [Update customer](#markdown-header-update-customer)
     - [Create new customer](#markdown-header-create-new-customer)
     - [Add note to customer by id](#markdown-header-add-note-to-customer-by-id)
+- [Users](#markdown-header-users)
+    - [Get all users](#markdown-header-get-all-users)
+    - [Get user by id](#markdown-header-get-user-by-id)
 
 # Examples
 
@@ -554,4 +557,50 @@ $client = new AmoapiClient(
 $client->getTokensByCode("code");
 
 print_r($client->customers()->addNoteById(183435, "Test note"));
+```
+
+## Users
+### Get all users
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$filter = [
+    "page" => 0,
+    "limit" => 50
+];
+
+$users = $client->users()->getAll($filter); // array
+
+if (!array_key_exists("error", $users)) {
+    print_r($users);
+}
+```
+
+### Get user by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$user = $client->users()->getById(6928032); // array
+
+if (!array_key_exists("error", $user)) {
+    print_r($user);
+}
 ```
