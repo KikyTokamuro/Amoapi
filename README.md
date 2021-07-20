@@ -160,7 +160,7 @@ if (!array_key_exists("error", $lead)) {
     $lead["name"] = "new name";
     $lead["price"] = 1111;
 
-    print_r($this->client->leads()->update([$lead])); // array
+    print_r($client->leads()->update([$lead])); // array
 }
 ```
 
@@ -179,7 +179,7 @@ $client->getTokensByCode("code");
 
 $lead = [["name" => "new lead", "price" => 1111]];
 
-print_r(client->leads()->createNew($lead)); // array
+print_r($client->leads()->createNew($lead)); // array
 ```
 
 ### Add note to lead by id
@@ -195,7 +195,7 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r(client->leads()->addNoteById(28091207, "Test note"))
+print_r($client->leads()->addNoteById(28091207, "Test note"))
 ```
 
 ## Tasks
@@ -246,7 +246,7 @@ $task = [
     "request_id" => "example"
 ];
 
-print_r(client->tasks()->createNew($task));
+print_r($client->tasks()->createNew($task));
 ```
 
 ## Contacts
@@ -333,7 +333,7 @@ $client->getTokensByCode("code");
 
 $contact = [["name" => "new contact"]];
 
-print_r(client->contacts()->createNew($contact)); // array
+print_r($client->contacts()->createNew($contact)); // array
 ```
 
 ### Add note to contact by id
@@ -349,7 +349,7 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r(client->contacts()->addNoteById(28091207, "Test note"))
+print_r($client->contacts()->addNoteById(28091207, "Test note"))
 ```
 
 ## Companies
@@ -435,7 +435,7 @@ $client->getTokensByCode("code");;
 
 $company = [["name" => "new company"]];
 
-print_r(client->companies()->createNew($company)); // array
+print_r($client->companies()->createNew($company)); // array
 ```
 
 ### Add note to company by id
@@ -451,7 +451,7 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r(client->companies()->addNoteById(45607457, "Test note"))
+print_r($client->companies()->addNoteById(45607457, "Test note"))
 ```
 
 ## Customers
@@ -537,7 +537,7 @@ $client->getTokensByCode("code");;
 
 $customer = [["name" => "new company"]];
 
-print_r(client->customers()->createNew($customer)); // array
+print_r($client->customers()->createNew($customer)); // array
 ```
 
 ### Add note to customer by id
@@ -553,5 +553,5 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r(client->customers()->addNoteById(183435, "Test note"));
+print_r($client->customers()->addNoteById(183435, "Test note"));
 ```
