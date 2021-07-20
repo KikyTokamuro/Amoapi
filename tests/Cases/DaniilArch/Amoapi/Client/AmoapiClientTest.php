@@ -133,4 +133,36 @@ class AmoapiClientTest extends TestCase
     {
         $this->assertArrayHasKey("error", $this->client->companies()->addNoteById(45607457, "Test note"));
     }
+
+    public function testCustomersGetAll(): void
+    {
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->contacts()->getAll($filter));
+    }
+
+    public function testCustomersGetById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->customers()->getById(183435));
+    }
+
+    public function testCustomersUpdate(): void
+    {
+        $customer = $this->client->customers()->getById(183435);
+        $customer["name"] = "new";
+
+        $this->assertArrayHasKey("error", $this->client->customers()->update([$customer]));
+    }
+
+    public function testCustomersCreateNew(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->customers()->createNew([
+            ["name" => "from api"]
+        ]));
+    }
+
+    public function testCustomersAddNoteById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->customers()->addNoteById(183665, "Test note"));
+    }
 }
