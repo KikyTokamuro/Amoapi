@@ -8,6 +8,7 @@ use Amoapi\Models\TaskModel;
 use Amoapi\Models\ContactModel;
 use Amoapi\Models\CompanyModel;
 use Amoapi\Models\CustomerModel;
+use Amoapi\Models\UserModel;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -27,8 +28,8 @@ class AmoapiClient extends AmoapiOAuth
      */
     private function checkTokens(): void
     {
-        if (array_key_exists("expire_date", $this->jsonConfig)) {
-            if (time() >= $this->jsonConfig["expire_date"]) {
+        if (array_key_exists("expires_date", $this->jsonConfig)) {
+            if (time() >= $this->jsonConfig["expires_date"]) {
                 $this->getTokensByRefreshToken($this->jsonConfig["refresh_token"]);
             }
         }
@@ -87,5 +88,16 @@ class AmoapiClient extends AmoapiOAuth
     {
         $this->checkTokens();
         return new CustomerModel($this->apiUri, $this->accessToken);
+    }
+    
+    /**
+     * Get users
+     *
+     * @return UserModel
+     */
+    public function users(): UserModel
+    {
+        $this->checkTokens();
+        return new UserModel($this->apiUri, $this->accessToken);
     }
 }
