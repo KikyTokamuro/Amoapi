@@ -9,6 +9,7 @@ use Amoapi\Models\ContactModel;
 use Amoapi\Models\CompanyModel;
 use Amoapi\Models\CustomerModel;
 use Amoapi\Models\UserModel;
+use Amoapi\Models\RoleModel;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -99,5 +100,16 @@ class AmoapiClient extends AmoapiOAuth
     {
         $this->checkTokens();
         return new UserModel($this->apiUri, $this->accessToken);
+    }
+    
+    /**
+     * Get roles
+     *
+     * @return RoleModel
+     */
+    public function roles(): RoleModel
+    {
+        $this->checkTokens();
+        return new RoleModel($this->apiUri, $this->accessToken);
     }
 }
