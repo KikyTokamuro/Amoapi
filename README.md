@@ -1,6 +1,6 @@
 # Amoapi
 
-Tiny lib for amoCRM API
+Tiny lib for [amoCRM API](https://www.amocrm.ru/developers/content/crm_platform/api-reference)
 
 - [What is implemented](#markdown-header-what-is-implemented)
 - [Examples](#markdown-header-examples)
@@ -39,6 +39,9 @@ Tiny lib for amoCRM API
 - [Users](#markdown-header-users)
     - [Get all users](#markdown-header-get-all-users)
     - [Get user by id](#markdown-header-get-user-by-id)
+- [Roles](#markdown-header-roles)
+    - [Get all users roles](#markdown-header-get-all-users-roles)
+    - [Get role by id](#markdown-header-get-role-by-id)
 
 # Examples
 
@@ -602,5 +605,51 @@ $user = $client->users()->getById(6928032); // array
 
 if (!array_key_exists("error", $user)) {
     print_r($user);
+}
+```
+
+## Roles
+### Get all users roles
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$filter = [
+    "page" => 0,
+    "limit" => 50
+];
+
+$roles = $client->roles()->getAllRoles($filter); // array
+
+if (!array_key_exists("error", $roles)) {
+    print_r($roles);
+}
+```
+
+### Get role by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$role = $client->roles()->getRoleById(56320); // array
+
+if (!array_key_exists("error", $role)) {
+    print_r($role);
 }
 ```
