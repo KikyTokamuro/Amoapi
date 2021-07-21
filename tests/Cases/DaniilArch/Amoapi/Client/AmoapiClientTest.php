@@ -177,4 +177,16 @@ class AmoapiClientTest extends TestCase
     {
         $this->assertArrayHasKey("error", $this->client->users()->getById(6928032));
     }
+
+    public function testRolesGetAllRoles(): void
+    {
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->roles()->getAllRoles($filter));
+    }
+
+    public function testRolesGetRoleById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->roles()->getRoleById(56320));
+    }
 }
