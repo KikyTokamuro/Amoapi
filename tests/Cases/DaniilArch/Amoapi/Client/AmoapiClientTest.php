@@ -194,4 +194,58 @@ class AmoapiClientTest extends TestCase
     {
         $this->assertArrayHasKey("error", $this->client->account()->getInfo());
     }
+
+    public function testCatalogsGetAll(): void
+    {
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->catalogs()->getAll($filter));
+    }
+
+    public function testCatalogsGetById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->catalogs()->getById(2419));
+    }
+
+    public function testCatalogsCreateNew(): void
+    {
+        $this->assertArrayHasKey("error",$this->client->catalogs()->createNew([
+            ["name" => "new catalog from api"]
+        ]));
+    }
+
+    public function testCatalogsUpdate(): void
+    {
+        $catalog = $this->client->catalogs()->getById(2419);
+        $catalog["name"] = "new name";
+
+        $this->assertArrayHasKey("error", $this->client->catalogs()->update([$catalog]));
+    }
+
+    public function testCatalogsGetAllElements(): void
+    {
+        $filter = ["page" => 0, "limit" => 5];
+
+        $this->assertArrayHasKey("error", $this->client->catalogs()->getAllElements(1989, $filter));
+    }
+
+    public function testCatalogsGetElementById(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->catalogs()->getElementById(1989, 953789));
+    }
+
+    public function testCatalogsAddNewElement(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->catalogs()->addNewElement(1989, [
+            ["name" => "New element"]
+        ]));
+    }
+
+    public function testCatalogsUpdateElement(): void
+    {
+        $element = $this->client->catalogs()->getElementById(1989, 953789);
+        $element["name"] = "new name";
+
+        $this->assertArrayHasKey("error", $this->client->catalogs()->updateElement(1989, [$element]));
+    }
 }
