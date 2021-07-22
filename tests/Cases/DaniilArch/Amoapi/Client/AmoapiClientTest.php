@@ -46,7 +46,12 @@ class AmoapiClientTest extends TestCase
 
     public function testLeadsAddNoteById(): void
     {
-        $this->assertArrayHasKey("error", $this->client->leads()->addNoteById(28091207, "Test note"));
+        $note = [
+            "note_type" => "common",
+            "text" => "test note"
+        ];
+
+        $this->assertArrayHasKey("error", $this->client->leads()->addNoteById(28091207, $note));
     }
 
     public function testTasksGetAll(): void
@@ -99,7 +104,12 @@ class AmoapiClientTest extends TestCase
 
     public function testContactsAddNoteById(): void
     {
-        $this->assertArrayHasKey("error", $this->client->contacts()->addNoteById(28091207, "Test note"));
+        $note = [
+            "note_type" => "common",
+            "text" => "test note"
+        ];
+
+        $this->assertArrayHasKey("error", $this->client->contacts()->addNoteById(28091207, $note));
     }
 
     public function testCompaniesGetAll(): void
@@ -131,7 +141,12 @@ class AmoapiClientTest extends TestCase
 
     public function testCompaniesAddNoteById(): void
     {
-        $this->assertArrayHasKey("error", $this->client->companies()->addNoteById(45607457, "Test note"));
+        $note = [
+            "note_type" => "common",
+            "text" => "test note"
+        ];
+
+        $this->assertArrayHasKey("error", $this->client->companies()->addNoteById(45607457, $note));
     }
 
     public function testCustomersGetAll(): void
@@ -163,7 +178,12 @@ class AmoapiClientTest extends TestCase
 
     public function testCustomersAddNoteById(): void
     {
-        $this->assertArrayHasKey("error", $this->client->customers()->addNoteById(183665, "Test note"));
+        $note = [
+            "note_type" => "common",
+            "text" => "test note"
+        ];
+
+        $this->assertArrayHasKey("error", $this->client->customers()->addNoteById(183665, $note));
     }
 
     public function testUsersGetAll(): void

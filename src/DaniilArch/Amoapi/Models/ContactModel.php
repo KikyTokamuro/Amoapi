@@ -85,15 +85,11 @@ class ContactModel
      * Add note to contact by id
      *
      * @param  int $id
-     * @param  string $text
-     * @param  string $type
+     * @param  array $note
      * @return array
      */
-    public function addNoteById(int $id, string $text, string $type = "common"): array
+    public function addNoteById(int $id, array $note): array
     {
-        return $this->httpClient->request("POST", "{$this->apiUri}/{$id}/notes", [[
-            "text" => $text,
-            "note_type" => $type
-        ]], $this->headers);
+        return $this->httpClient->request("POST", "{$this->apiUri}/{$id}/notes", [$note], $this->headers);
     }
 }

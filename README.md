@@ -212,7 +212,12 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r($client->leads()->addNoteById(28091207, "Test note"))
+$note = [
+    "note_type" => "common",
+    "text" => "test note"
+];
+
+print_r($client->leads()->addNoteById(28091207, $note))
 ```
 
 ## Tasks
@@ -366,7 +371,12 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r($client->contacts()->addNoteById(28091207, "Test note"))
+$note = [
+    "note_type" => "common",
+    "text" => "test note"
+];
+
+print_r($client->contacts()->addNoteById(28091207, $note))
 ```
 
 ## Companies
@@ -468,7 +478,12 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r($client->companies()->addNoteById(45607457, "Test note"))
+$note = [
+    "note_type" => "common",
+    "text" => "test note"
+];
+
+print_r($client->companies()->addNoteById(45607457, $note))
 ```
 
 ## Customers
@@ -570,7 +585,12 @@ $client = new AmoapiClient(
 
 $client->getTokensByCode("code");
 
-print_r($client->customers()->addNoteById(183435, "Test note"));
+$note = [
+    "note_type" => "common",
+    "text" => "test note"
+];
+
+print_r($client->customers()->addNoteById(183435, $note));
 ```
 
 ## Users
