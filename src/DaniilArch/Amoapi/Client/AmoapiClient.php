@@ -11,6 +11,7 @@ use Amoapi\Models\CustomerModel;
 use Amoapi\Models\UserModel;
 use Amoapi\Models\RoleModel;
 use Amoapi\Models\AccountModel;
+use Amoapi\Models\CatalogModel;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -123,5 +124,16 @@ class AmoapiClient extends AmoapiOAuth
     {
         $this->checkTokens();
         return new AccountModel($this->apiUri, $this->accessToken);
+    }
+    
+    /**
+     * Get catalogs
+     *
+     * @return CatalogModel
+     */
+    public function catalogs(): CatalogModel
+    {
+        $this->checkTokens();
+        return new CatalogModel($this->apiUri, $this->accessToken);
     }
 }
