@@ -44,6 +44,15 @@ Tiny lib for [amoCRM API](https://www.amocrm.ru/developers/content/crm_platform/
     - [Get role by id](#markdown-header-get-role-by-id)
 - [Account](#markdown-header-account)
     - [Get account info](#markdown-header-get-account-info)
+- [Catalogs](#markdown-header-catalogs)
+    - [Get all catalogs](#markdown-header-get-all-catalogs)
+    - [Get catalog by id](#markdown-header-get-catalog-by-id)
+    - [Create new catalog](#markdown-header-create-new-catalog)
+    - [Update catalog](#markdown-header-update-catalog)
+    - [Get all catalog elements](#markdown-header-get-all-catalog-elements)
+    - [Get catalog element by id](#markdown-header-get-catalog-element-by-id)
+    - [Add new element to catalog](#markdown-header-add-new-element-to-catalog)
+    - [Update catalog element](#markdown-header-update-catalog-element)
 
 # Examples
 
@@ -675,4 +684,177 @@ $info = $client->account()->getInfo(); // array
 if (!array_key_exists("error", $info)) {
     print_r($info);
 }
+```
+
+## Catalogs
+### Get all catalogs
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$filter = [
+    "page" => 0,
+    "limit" => 50
+];
+
+$catalogs = $client->catalogs()->getAll($filter); // array
+
+if (!array_key_exists("error", $catalogs)) {
+    print_r($catalogs);
+}
+```
+
+### Get catalog by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$catalog = $client->catalogs()->getById(2419); // array
+
+if (!array_key_exists("error", $catalog)) {
+    print_r($catalog);
+}
+```
+
+### Create new catalog
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$catalog = [["name" => "new catalog"]];
+
+print_r($client->catalogs()->createNew($catalog)); // array
+```
+
+### Update catalog
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$catalog = $client->catalogs()->getById(2419); // array
+
+if (!array_key_exists("error", $catalog)) {
+    $catalog["name"] = "update catalog";
+
+    print_r($client->catalogs()->update([$catalog])); // array
+}
+```
+
+### Get all catalog elements
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$filter = [
+    "page" => 0,
+    "limit" => 50
+];
+
+$elements = $client->catalogs()->getAllElements(1989, $filter); // array
+
+if (!array_key_exists("error", $elements)) {
+    print_r($elements);
+}
+```
+
+### Get catalog element by id
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$element = $client->catalogs()->getElementById(1989, 953789); // array
+
+if (!array_key_exists("error", $element)) {
+    print_r($element);
+}
+```
+
+### Add new element to catalog
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$element = [["name" => "new element"]];
+
+print_r($client->catalogs()->createNewElement(1989, $catalog));
+```
+
+### Update catalog element
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$element = $this->client->catalogs()->getElementById(1989, 953789);
+$element["name"] = "new name";
+
+// Delete not expected fields
+unset($element["created_by"]);
+unset($element["updated_by"]);
+unset($element["custom_fields_values"][2]["values"][0]["enum_code"]);
+
+print_r($this->client->catalogs()->updateElement(1989, [$element]));
 ```
