@@ -10,6 +10,7 @@ use Amoapi\Models\CompanyModel;
 use Amoapi\Models\CustomerModel;
 use Amoapi\Models\UserModel;
 use Amoapi\Models\RoleModel;
+use Amoapi\Models\AccountModel;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -111,5 +112,16 @@ class AmoapiClient extends AmoapiOAuth
     {
         $this->checkTokens();
         return new RoleModel($this->apiUri, $this->accessToken);
+    }
+    
+    /**
+     * Get account
+     *
+     * @return AccountModel
+     */
+    public function account(): AccountModel
+    {
+        $this->checkTokens();
+        return new AccountModel($this->apiUri, $this->accessToken);
     }
 }
