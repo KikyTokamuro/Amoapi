@@ -189,4 +189,9 @@ class AmoapiClientTest extends TestCase
     {
         $this->assertArrayHasKey("error", $this->client->roles()->getRoleById(56320));
     }
+
+    public function testAccountGetInfo(): void
+    {
+        $this->assertArrayHasKey("error", $this->client->account()->getInfo());
+    }
 }
