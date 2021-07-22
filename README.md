@@ -42,6 +42,8 @@ Tiny lib for [amoCRM API](https://www.amocrm.ru/developers/content/crm_platform/
 - [Roles](#markdown-header-roles)
     - [Get all users roles](#markdown-header-get-all-users-roles)
     - [Get role by id](#markdown-header-get-role-by-id)
+- [Account](#markdown-account)
+    - [Get account info](#markdown-header-get-account-info)
 
 # Examples
 
@@ -651,5 +653,26 @@ $role = $client->roles()->getRoleById(56320); // array
 
 if (!array_key_exists("error", $role)) {
     print_r($role);
+}
+```
+
+## Account
+### Get account info
+```php
+use Amoapi\Client\AmoapiClient;
+
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+);
+
+$client->getTokensByCode("code");
+
+$info = $client->account()->getInfo(); // array
+
+if (!array_key_exists("error", $info)) {
+    print_r($info);
 }
 ```
