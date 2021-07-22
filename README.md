@@ -140,7 +140,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");;
+$client->getTokensByCode("code");
 
 $lead = $client->leads()->getById(28091207); // array
 
@@ -439,7 +439,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");;
+$client->getTokensByCode("code");
 
 $company = [["name" => "new company"]];
 
@@ -541,7 +541,7 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");;
+$client->getTokensByCode("code");
 
 $customer = [["name" => "new company"]];
 
