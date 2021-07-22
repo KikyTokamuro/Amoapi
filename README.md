@@ -42,7 +42,7 @@ Tiny lib for [amoCRM API](https://www.amocrm.ru/developers/content/crm_platform/
 - [Roles](#markdown-header-roles)
     - [Get all users roles](#markdown-header-get-all-users-roles)
     - [Get role by id](#markdown-header-get-role-by-id)
-- [Account](#markdown-account)
+- [Account](#markdown-header-account)
     - [Get account info](#markdown-header-get-account-info)
 
 # Examples
