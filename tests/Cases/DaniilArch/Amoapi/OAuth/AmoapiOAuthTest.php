@@ -1,5 +1,6 @@
 <?php
 
+use Amoapi\Exception\AmoapiException;
 use Amoapi\OAuth\AmoapiOAuth;
 use PHPUnit\Framework\TestCase;
 
@@ -34,18 +35,14 @@ class AmoapiOAuthTest extends TestCase
 
     public function testGetTokensByCode(): void
     {
-        $this->assertArrayHasKey(
-            "error", 
-            $this->oauth->getTokensByCode("testcode")
-        );
+        $this->expectException(AmoapiException::class);
+        $this->oauth->getTokensByCode("testcode");
     }
 
     public function testGetTokensByRefreshToken(): void
     {
-        $this->assertArrayHasKey(
-            "error", 
-            $this->oauth->getTokensByRefreshToken("testRefreshToken")
-        );
+        $this->expectException(AmoapiException::class);
+        $this->oauth->getTokensByRefreshToken("testRefreshToken");
     }
 
     public function testGetAccessToken(): void
