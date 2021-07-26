@@ -6,6 +6,7 @@
     "autoload": {
         "psr-4": {
             "Amoapi\\": "src/DaniilArch",
+            "Amoapi\\Exception\\": "src/DaniilArch/Amoapi/Exception",
             "Amoapi\\Client\\": "src/DaniilArch/Amoapi/Client",
             "Amoapi\\Http\\": "src/DaniilArch/Amoapi/Http",
             "Amoapi\\OAuth\\": "src/DaniilArch/Amoapi/OAuth",
