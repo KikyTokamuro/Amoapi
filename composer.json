@@ -10,7 +10,7 @@
             "Amoapi\\Client\\": "src/DaniilArch/Amoapi/Client",
             "Amoapi\\Http\\": "src/DaniilArch/Amoapi/Http",
             "Amoapi\\OAuth\\": "src/DaniilArch/Amoapi/OAuth",
-            "Amoapi\\Models\\": "src/DaniilArch/Amoapi/Models"
+            "Amoapi\\Services\\": "src/DaniilArch/Amoapi/Services"
         }
     },
     "authors": [
