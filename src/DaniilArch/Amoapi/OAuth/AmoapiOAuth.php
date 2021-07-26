@@ -33,7 +33,7 @@ class AmoapiOAuth
     /**
      * @var string
      */
-    protected $config = "./tokens.json";
+    protected $config = "";
     
     /**
      * @var array
@@ -89,13 +89,15 @@ class AmoapiOAuth
         string $subdomain, 
         string $clientId, 
         string $clientSecret,  
-        string $redirectUri
+        string $redirectUri,
+        string $configPath = "./tokens.json"
     ) {
         $this->subdomain = $subdomain;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->redirectUri = $redirectUri;
         $this->apiUri = "{$this->protocol}{$subdomain}.{$this->baseDomain}";
+        $this->config = $configPath;
 
         if (file_exists($this->config)) {
             $configString = file_get_contents($this->config);
@@ -199,17 +201,6 @@ class AmoapiOAuth
     public function getConfig(): string
     {
         return $this->config;
-    }
-    
-    /**
-     * setConfig
-     *
-     * @param  string $config
-     * @return void
-     */
-    public function setConfig(string $config): void
-    {
-        $this->config = $config;
     }
 
     /**

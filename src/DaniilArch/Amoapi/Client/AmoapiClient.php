@@ -19,9 +19,10 @@ class AmoapiClient extends AmoapiOAuth
         string $subdomain, 
         string $clientId, 
         string $clientSecret,  
-        string $redirectUri
+        string $redirectUri,
+        string $configPath = "./tokens.json"
     ){
-        parent::__construct($subdomain, $clientId, $clientSecret, $redirectUri);
+        parent::__construct($subdomain, $clientId, $clientSecret, $redirectUri, $configPath);
     }
 
     /**
