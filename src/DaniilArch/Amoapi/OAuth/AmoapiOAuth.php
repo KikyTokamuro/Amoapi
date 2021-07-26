@@ -102,8 +102,6 @@ class AmoapiOAuth
             $this->jsonConfig = json_decode($configString, true);
         }
 
-        $this->checkTokens();
-
         $this->httpClient = new AmoapiHttpClient($this->apiUri);
     }
              
@@ -115,7 +113,10 @@ class AmoapiOAuth
     public function checkTokens(): void
     {
         if (array_key_exists("expires_date", $this->jsonConfig)) {
-            if (time() >= $this->jsonConfig["expires_date"] && $this->jsonConfig["expires_date"] != 0) {
+            if (
+                time() >= $this->jsonConfig["expires_date"] 
+                && $this->jsonConfig["expires_date"] != 0
+            ) {
                 $this->getTokensByRefreshToken($this->jsonConfig["refresh_token"]);
             }
         }
@@ -134,7 +135,7 @@ class AmoapiOAuth
             "refresh_token" => $jsonResp["refresh_token"],
             "expires_in" => $jsonResp["expires_in"],
             "receipt_date" => time(),
-            "expires_date" => time() + $this->tokenExpire
+            "expires_date" => time() + $jsonResp["expires_in"]
         ];
 
         file_put_contents($this->config, json_encode($this->jsonConfig));
@@ -162,7 +163,7 @@ class AmoapiOAuth
 
         $this->writeConfig($jsonResp);
 
-        return $jsonResp ?? [];
+        return $jsonResp;
     }
     
     /**
@@ -187,7 +188,7 @@ class AmoapiOAuth
 
         $this->writeConfig($jsonResp);
 
-        return $jsonResp ?? [];
+        return $jsonResp;
     }
         
     /**
