@@ -58,11 +58,17 @@ Tiny lib for [amoCRM API](https://www.amocrm.ru/developers/content/crm_platform/
 
 ## Tokens
 
-When receiving tokens, they are written to "config.json".
+When receiving tokens, they are written to "tokens.json".
 
 Which can be set via:
 ```php
-$client->setConfig('config_file')
+$client = new AmoapiClient(
+    "subdomain", 
+    "client_id",
+    "client_secret",
+    "redirect_url",
+    "tokens.json" // <---
+);
 ```
 
 config.json:
