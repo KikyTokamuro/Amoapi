@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class UserModel
+class ContactService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -14,7 +14,7 @@ class UserModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/users";
+    private $apiUri = "/api/v4/contacts";
 
     /**
      * @var array
@@ -25,7 +25,7 @@ class UserModel
     ];
     
     /**
-     * UserModel construct
+     * TaskService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -36,9 +36,9 @@ class UserModel
         $this->httpClient = new AmoapiHttpClient($baseUri);
         $this->headers["Authorization"] = "Bearer " . $accessToken;
     }
-    
+
     /**
-     * Get all users
+     * Get all contacts
      *
      * @param  array $filter
      * @return array
@@ -49,7 +49,7 @@ class UserModel
     }
     
     /**
-     * Get user by id
+     * Get contact by id
      *
      * @param  int $id
      * @return array
@@ -57,5 +57,39 @@ class UserModel
     public function getById(int $id): array
     {
         return $this->httpClient->request("GET", "{$this->apiUri}/{$id}", [], $this->headers);
+    }
+    
+    /**
+     * Update contact
+     *
+     * @param  array $leads
+     * @return array
+     */
+    public function update(array $contacts): array
+    {
+        return $this->httpClient->request("PATCH", $this->apiUri, $contacts, $this->headers);
+    }
+
+    /**
+     * Create new contact
+     *
+     * @param  array $leads
+     * @return array
+     */
+    public function createNew(array $contacts): array
+    {
+        return $this->httpClient->request("POST", $this->apiUri, $contacts, $this->headers);
+    }
+
+    /**
+     * Add note to contact by id
+     *
+     * @param  int $id
+     * @param  array $note
+     * @return array
+     */
+    public function addNoteById(int $id, array $note): array
+    {
+        return $this->httpClient->request("POST", "{$this->apiUri}/{$id}/notes", [$note], $this->headers);
     }
 }

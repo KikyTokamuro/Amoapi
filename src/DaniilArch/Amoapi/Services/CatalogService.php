@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class CatalogModel
+class CatalogService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -25,7 +25,7 @@ class CatalogModel
     ];
 
     /**
-     * CatalogModel construct
+     * CatalogService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken

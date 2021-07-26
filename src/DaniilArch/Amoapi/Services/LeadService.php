@@ -1,11 +1,11 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class CompanyModel
-{
+class LeadService extends Service
+{    
     /**
      * @var Amoapi\Http\AmoapiHttpClient
      */
@@ -14,7 +14,7 @@ class CompanyModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/companies";
+    private $apiUri = "/api/v4/leads";
 
     /**
      * @var array
@@ -25,7 +25,7 @@ class CompanyModel
     ];
     
     /**
-     * CompanyModel construct
+     * LeadService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -38,8 +38,9 @@ class CompanyModel
     }
     
     /**
-     * Get all companies
+     * Get all leads
      *
+     * @param  array $filter
      * @return array
      */
     public function getAll(array $filter): array
@@ -48,7 +49,7 @@ class CompanyModel
     }
     
     /**
-     * Get company by id
+     * Get lead by id
      *
      * @param  int $id
      * @return array
@@ -59,29 +60,29 @@ class CompanyModel
     }
     
     /**
-     * Update company
+     * Update lead
      *
      * @param  array $leads
      * @return array
      */
-    public function update(array $companies): array
+    public function update(array $leads): array
     {
-        return $this->httpClient->request("PATCH", $this->apiUri, $companies, $this->headers);
+        return $this->httpClient->request("PATCH", $this->apiUri, $leads, $this->headers);
     }
-    
+
     /**
-     * Create new company
+     * Create new lead
      *
-     * @param  array $companies
+     * @param  array $leads
      * @return array
      */
-    public function createNew(array $companies): array
+    public function createNew(array $leads): array
     {
-        return $this->httpClient->request("POST", $this->apiUri, $companies, $this->headers);
+        return $this->httpClient->request("POST", $this->apiUri, $leads, $this->headers);
     }
     
     /**
-     * Add note to company by id
+     * Add note to lead by id
      *
      * @param  int $id
      * @param  array $note

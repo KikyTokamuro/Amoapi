@@ -1,6 +1,7 @@
 <?php
 
 namespace Amoapi\Http;
+
 use Amoapi\Exception\AmoapiException;
 use GuzzleHttp\Client;
 use Exception;

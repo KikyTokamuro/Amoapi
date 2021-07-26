@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class TaskModel
+class RoleService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -14,7 +14,7 @@ class TaskModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/tasks";
+    private $apiUri = "/api/v4/roles";
 
     /**
      * @var array
@@ -25,7 +25,7 @@ class TaskModel
     ];
     
     /**
-     * TaskModel construct
+     * RoleService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -36,26 +36,26 @@ class TaskModel
         $this->httpClient = new AmoapiHttpClient($baseUri);
         $this->headers["Authorization"] = "Bearer " . $accessToken;
     }
-    
+        
     /**
-     * Get all tasks
+     * Get all users roles
      *
      * @param  array $filter
      * @return array
      */
-    public function getAll(array $filter): array
+    public function getAllRoles(array $filter): array
     {
         return $this->httpClient->request("GET", $this->apiUri, $filter, $this->headers);
     }
-
+    
     /**
-     * Create new task
+     * Get role by id
      *
-     * @param  array $task
+     * @param  int $id
      * @return array
      */
-    public function createNew(array $task): array
+    public function getRoleById(int $id): array
     {
-        return $this->httpClient->request("POST", $this->apiUri, [$task], $this->headers);
+        return $this->httpClient->request("GET", "{$this->apiUri}/{$id}", [], $this->headers);
     }
 }

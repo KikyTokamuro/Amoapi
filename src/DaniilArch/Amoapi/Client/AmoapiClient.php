@@ -3,15 +3,16 @@
 namespace Amoapi\Client;
 
 use Amoapi\OAuth\AmoapiOAuth;
-use Amoapi\Models\LeadModel;
-use Amoapi\Models\TaskModel;
-use Amoapi\Models\ContactModel;
-use Amoapi\Models\CompanyModel;
-use Amoapi\Models\CustomerModel;
-use Amoapi\Models\UserModel;
-use Amoapi\Models\RoleModel;
-use Amoapi\Models\AccountModel;
-use Amoapi\Models\CatalogModel;
+use Amoapi\Services\LeadService;
+use Amoapi\Services\TaskService;
+use Amoapi\Services\ContactService;
+use Amoapi\Services\CompanyService;
+use Amoapi\Services\CustomerService;
+use Amoapi\Services\UserService;
+use Amoapi\Services\RoleService;
+use Amoapi\Services\AccountService;
+use Amoapi\Services\CatalogService;
+use Amoapi\Services\Service;
 
 class AmoapiClient extends AmoapiOAuth
 {
@@ -24,103 +25,126 @@ class AmoapiClient extends AmoapiOAuth
     ){
         parent::__construct($subdomain, $clientId, $clientSecret, $redirectUri, $configPath);
     }
+    
+    /**
+     * Get service by name
+     *
+     * @param  Service $name
+     * @return mixed
+     */
+    private function getService(string $name): Service
+    {
+        $this->checkTokens();
+
+        switch ($name) {
+            case "leads":
+                return new LeadService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "tasks":
+                return new TaskService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "contacts":
+                return new ContactService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "companies":
+                return new CompanyService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "customers":
+                return new CustomerService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "users":
+                return new UserService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "roles":
+                return new RoleService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "account":
+                return new AccountService($this->apiUri, $this->jsonConfig["access_token"]);
+            case "catalogs":
+                return new CatalogService($this->apiUri, $this->jsonConfig["access_token"]);
+        }
+    }
 
     /**
      * Get leads
      *
-     * @return LeadModel
+     * @return LeadService
      */
-    public function leads(): LeadModel
+    public function leads(): LeadService
     {
-        $this->checkTokens();
-        return new LeadModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("leads");
     }
     
     /**
      * Get tasks
      *
-     * @return TaskModel
+     * @return TaskService
      */
-    public function tasks(): TaskModel
+    public function tasks(): TaskService
     {
-        $this->checkTokens();
-        return new TaskModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("tasks");
     }
     
     /**
      * Get contacts
      *
-     * @return ContactModel
+     * @return ContactService
      */
-    public function contacts(): ContactModel
+    public function contacts(): ContactService
     {
-        $this->checkTokens();
-        return new ContactModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("contacts");
     }
     
     /**
      * Get companies
      *
-     * @return CompanyModel
+     * @return CompanyService
      */
-    public function companies(): CompanyModel
+    public function companies(): CompanyService
     {
-        $this->checkTokens();
-        return new CompanyModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("companies");
     }
     
     /**
      * Get customers
      *
-     * @return CustomerModel
+     * @return CustomerService
      */
-    public function customers(): CustomerModel
+    public function customers(): CustomerService
     {
-        $this->checkTokens();
-        return new CustomerModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("customers");
     }
     
     /**
      * Get users
      *
-     * @return UserModel
+     * @return UserService
      */
-    public function users(): UserModel
+    public function users(): UserService
     {
-        $this->checkTokens();
-        return new UserModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("users");
     }
     
     /**
      * Get roles
      *
-     * @return RoleModel
+     * @return RoleService
      */
-    public function roles(): RoleModel
+    public function roles(): RoleService
     {
-        $this->checkTokens();
-        return new RoleModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("roles");
     }
     
     /**
      * Get account
      *
-     * @return AccountModel
+     * @return AccountService
      */
-    public function account(): AccountModel
+    public function account(): AccountService
     {
-        $this->checkTokens();
-        return new AccountModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("account");
     }
     
     /**
      * Get catalogs
      *
-     * @return CatalogModel
+     * @return CatalogService
      */
-    public function catalogs(): CatalogModel
+    public function catalogs(): CatalogService
     {
-        $this->checkTokens();
-        return new CatalogModel($this->apiUri, $this->jsonConfig["access_token"]);
+        return $this->getService("catalogs");
     }
 }

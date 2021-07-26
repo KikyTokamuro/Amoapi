@@ -1,11 +1,11 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class LeadModel
-{    
+class CompanyService extends Service
+{
     /**
      * @var Amoapi\Http\AmoapiHttpClient
      */
@@ -14,7 +14,7 @@ class LeadModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/leads";
+    private $apiUri = "/api/v4/companies";
 
     /**
      * @var array
@@ -25,7 +25,7 @@ class LeadModel
     ];
     
     /**
-     * LeadModel construct
+     * CompanyService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -38,9 +38,8 @@ class LeadModel
     }
     
     /**
-     * Get all leads
+     * Get all companies
      *
-     * @param  array $filter
      * @return array
      */
     public function getAll(array $filter): array
@@ -49,7 +48,7 @@ class LeadModel
     }
     
     /**
-     * Get lead by id
+     * Get company by id
      *
      * @param  int $id
      * @return array
@@ -60,29 +59,29 @@ class LeadModel
     }
     
     /**
-     * Update lead
+     * Update company
      *
      * @param  array $leads
      * @return array
      */
-    public function update(array $leads): array
+    public function update(array $companies): array
     {
-        return $this->httpClient->request("PATCH", $this->apiUri, $leads, $this->headers);
-    }
-
-    /**
-     * Create new lead
-     *
-     * @param  array $leads
-     * @return array
-     */
-    public function createNew(array $leads): array
-    {
-        return $this->httpClient->request("POST", $this->apiUri, $leads, $this->headers);
+        return $this->httpClient->request("PATCH", $this->apiUri, $companies, $this->headers);
     }
     
     /**
-     * Add note to lead by id
+     * Create new company
+     *
+     * @param  array $companies
+     * @return array
+     */
+    public function createNew(array $companies): array
+    {
+        return $this->httpClient->request("POST", $this->apiUri, $companies, $this->headers);
+    }
+    
+    /**
+     * Add note to company by id
      *
      * @param  int $id
      * @param  array $note

@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class CustomerModel
+class UserService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -14,7 +14,7 @@ class CustomerModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/customers";
+    private $apiUri = "/api/v4/users";
 
     /**
      * @var array
@@ -23,9 +23,9 @@ class CustomerModel
         "User-Agent" => "amoCRM/oAuth Client 1.0",
         "Content-Type" => "application/json" 
     ];
-
+    
     /**
-     * CustomerModel construct
+     * UserService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -38,7 +38,7 @@ class CustomerModel
     }
     
     /**
-     * Get all customers
+     * Get all users
      *
      * @param  array $filter
      * @return array
@@ -49,7 +49,7 @@ class CustomerModel
     }
     
     /**
-     * Get customer by id
+     * Get user by id
      *
      * @param  int $id
      * @return array
@@ -57,39 +57,5 @@ class CustomerModel
     public function getById(int $id): array
     {
         return $this->httpClient->request("GET", "{$this->apiUri}/{$id}", [], $this->headers);
-    }
-    
-    /**
-     * Update customer
-     *
-     * @param  array $ustomers
-     * @return array
-     */
-    public function update(array $customers): array
-    {
-        return $this->httpClient->request("PATCH", $this->apiUri, $customers, $this->headers);
-    }
-
-    /**
-     * Create new customer
-     *
-     * @param  array $customers
-     * @return array
-     */
-    public function createNew(array $customers): array
-    {
-        return $this->httpClient->request("POST", $this->apiUri, $customers, $this->headers);
-    }
-    
-    /**
-     * Add note to customer by id
-     *
-     * @param  int $id
-     * @param  array $note
-     * @return array
-     */
-    public function addNoteById(int $id, array $note): array
-    {
-        return $this->httpClient->request("POST", "{$this->apiUri}/{$id}/notes", [$note], $this->headers);
     }
 }

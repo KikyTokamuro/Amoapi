@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class ContactModel
+class CustomerService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -14,7 +14,7 @@ class ContactModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/contacts";
+    private $apiUri = "/api/v4/customers";
 
     /**
      * @var array
@@ -23,9 +23,9 @@ class ContactModel
         "User-Agent" => "amoCRM/oAuth Client 1.0",
         "Content-Type" => "application/json" 
     ];
-    
+
     /**
-     * TaskMode construct
+     * CustomerService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -36,9 +36,9 @@ class ContactModel
         $this->httpClient = new AmoapiHttpClient($baseUri);
         $this->headers["Authorization"] = "Bearer " . $accessToken;
     }
-
+    
     /**
-     * Get all contacts
+     * Get all customers
      *
      * @param  array $filter
      * @return array
@@ -49,7 +49,7 @@ class ContactModel
     }
     
     /**
-     * Get contact by id
+     * Get customer by id
      *
      * @param  int $id
      * @return array
@@ -60,29 +60,29 @@ class ContactModel
     }
     
     /**
-     * Update contact
+     * Update customer
      *
-     * @param  array $leads
+     * @param  array $ustomers
      * @return array
      */
-    public function update(array $contacts): array
+    public function update(array $customers): array
     {
-        return $this->httpClient->request("PATCH", $this->apiUri, $contacts, $this->headers);
+        return $this->httpClient->request("PATCH", $this->apiUri, $customers, $this->headers);
     }
 
     /**
-     * Create new contact
+     * Create new customer
      *
-     * @param  array $leads
+     * @param  array $customers
      * @return array
      */
-    public function createNew(array $contacts): array
+    public function createNew(array $customers): array
     {
-        return $this->httpClient->request("POST", $this->apiUri, $contacts, $this->headers);
+        return $this->httpClient->request("POST", $this->apiUri, $customers, $this->headers);
     }
-
+    
     /**
-     * Add note to contact by id
+     * Add note to customer by id
      *
      * @param  int $id
      * @param  array $note

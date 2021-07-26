@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class AccountModel
+class TaskService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -14,7 +14,7 @@ class AccountModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/account";
+    private $apiUri = "/api/v4/tasks";
 
     /**
      * @var array
@@ -23,9 +23,9 @@ class AccountModel
         "User-Agent" => "amoCRM/oAuth Client 1.0",
         "Content-Type" => "application/json" 
     ];
-
+    
     /**
-     * AccountModel construct
+     * TaskService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -38,12 +38,24 @@ class AccountModel
     }
     
     /**
-     * Get account info
+     * Get all tasks
      *
+     * @param  array $filter
      * @return array
      */
-    public function getInfo(): array
+    public function getAll(array $filter): array
     {
-        return $this->httpClient->request("GET", $this->apiUri, [], $this->headers);
+        return $this->httpClient->request("GET", $this->apiUri, $filter, $this->headers);
+    }
+
+    /**
+     * Create new task
+     *
+     * @param  array $task
+     * @return array
+     */
+    public function createNew(array $task): array
+    {
+        return $this->httpClient->request("POST", $this->apiUri, [$task], $this->headers);
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Amoapi\Models;
+namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
-class RoleModel
+class AccountService extends Service
 {
     /**
      * @var Amoapi\Http\AmoapiHttpClient
@@ -14,7 +14,7 @@ class RoleModel
     /**
      * @var string
      */
-    private $apiUri = "/api/v4/roles";
+    private $apiUri = "/api/v4/account";
 
     /**
      * @var array
@@ -23,9 +23,9 @@ class RoleModel
         "User-Agent" => "amoCRM/oAuth Client 1.0",
         "Content-Type" => "application/json" 
     ];
-    
+
     /**
-     * RoleModel construct
+     * AccountService construct
      *
      * @param  string $baseUri
      * @param  string $accessToken
@@ -36,26 +36,14 @@ class RoleModel
         $this->httpClient = new AmoapiHttpClient($baseUri);
         $this->headers["Authorization"] = "Bearer " . $accessToken;
     }
-        
-    /**
-     * Get all users roles
-     *
-     * @param  array $filter
-     * @return array
-     */
-    public function getAllRoles(array $filter): array
-    {
-        return $this->httpClient->request("GET", $this->apiUri, $filter, $this->headers);
-    }
     
     /**
-     * Get role by id
+     * Get account info
      *
-     * @param  int $id
      * @return array
      */
-    public function getRoleById(int $id): array
+    public function getInfo(): array
     {
-        return $this->httpClient->request("GET", "{$this->apiUri}/{$id}", [], $this->headers);
+        return $this->httpClient->request("GET", $this->apiUri, [], $this->headers);
     }
 }
