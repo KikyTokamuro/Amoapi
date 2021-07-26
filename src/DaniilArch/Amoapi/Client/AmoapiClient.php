@@ -23,20 +23,6 @@ class AmoapiClient extends AmoapiOAuth
     ){
         parent::__construct($subdomain, $clientId, $clientSecret, $redirectUri);
     }
-        
-    /**
-     * Check tokens for expire
-     *
-     * @return void
-     */
-    private function checkTokens(): void
-    {
-        if (array_key_exists("expires_date", $this->jsonConfig)) {
-            if (time() >= $this->jsonConfig["expires_date"]) {
-                $this->getTokensByRefreshToken($this->jsonConfig["refresh_token"]);
-            }
-        }
-    }
 
     /**
      * Get leads
@@ -46,7 +32,7 @@ class AmoapiClient extends AmoapiOAuth
     public function leads(): LeadModel
     {
         $this->checkTokens();
-        return new LeadModel($this->apiUri, $this->accessToken);
+        return new LeadModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -57,7 +43,7 @@ class AmoapiClient extends AmoapiOAuth
     public function tasks(): TaskModel
     {
         $this->checkTokens();
-        return new TaskModel($this->apiUri, $this->accessToken);
+        return new TaskModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -68,7 +54,7 @@ class AmoapiClient extends AmoapiOAuth
     public function contacts(): ContactModel
     {
         $this->checkTokens();
-        return new ContactModel($this->apiUri, $this->accessToken);
+        return new ContactModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -79,7 +65,7 @@ class AmoapiClient extends AmoapiOAuth
     public function companies(): CompanyModel
     {
         $this->checkTokens();
-        return new CompanyModel($this->apiUri, $this->accessToken);
+        return new CompanyModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -90,7 +76,7 @@ class AmoapiClient extends AmoapiOAuth
     public function customers(): CustomerModel
     {
         $this->checkTokens();
-        return new CustomerModel($this->apiUri, $this->accessToken);
+        return new CustomerModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -101,7 +87,7 @@ class AmoapiClient extends AmoapiOAuth
     public function users(): UserModel
     {
         $this->checkTokens();
-        return new UserModel($this->apiUri, $this->accessToken);
+        return new UserModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -112,7 +98,7 @@ class AmoapiClient extends AmoapiOAuth
     public function roles(): RoleModel
     {
         $this->checkTokens();
-        return new RoleModel($this->apiUri, $this->accessToken);
+        return new RoleModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -123,7 +109,7 @@ class AmoapiClient extends AmoapiOAuth
     public function account(): AccountModel
     {
         $this->checkTokens();
-        return new AccountModel($this->apiUri, $this->accessToken);
+        return new AccountModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
     
     /**
@@ -134,6 +120,6 @@ class AmoapiClient extends AmoapiOAuth
     public function catalogs(): CatalogModel
     {
         $this->checkTokens();
-        return new CatalogModel($this->apiUri, $this->accessToken);
+        return new CatalogModel($this->apiUri, $this->jsonConfig["access_token"]);
     }
 }

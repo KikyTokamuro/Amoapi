@@ -3,6 +3,7 @@
 namespace Amoapi\OAuth;
 
 use Amoapi\Http\AmoapiHttpClient;
+use Amoapi\Exception\AmoapiException;
 
 class AmoapiOAuth
 {    
@@ -37,7 +38,13 @@ class AmoapiOAuth
     /**
      * @var array
      */
-    protected $jsonConfig = [];
+    protected $jsonConfig = [
+        "access_token" => "",
+        "refresh_token" => "",
+        "expires_in" => 0,
+        "receipt_date" => 0,
+        "expires_date" => 0
+    ];
 
     /**
      * @var string
@@ -63,24 +70,9 @@ class AmoapiOAuth
      * @var string
      */
     protected $apiUri = "";
-        
-    /**
-     * @var string
-     */
-    protected $accessToken = "";
-    
-    /**
-     * @var string
-     */
-    protected $refreshToken = "";
-       
-    /**
-     * @var int
-     */
-    protected $tokenExpire = 0;
 
     /**
-     * @var Amoapi\Http\AmoapiHttpClient
+     * @var AmoapiHttpClient
      */
     protected $httpClient;
 
@@ -108,46 +100,44 @@ class AmoapiOAuth
         if (file_exists($this->config)) {
             $configString = file_get_contents($this->config);
             $this->jsonConfig = json_decode($configString, true);
-
-            $this->accessToken = $this->jsonConfig["access_token"];
-            $this->refreshToken = $this->jsonConfig["refresh_token"];
-            $this->tokenExpire = $this->jsonConfig["expires_in"];
         }
+
+        $this->checkTokens();
 
         $this->httpClient = new AmoapiHttpClient($this->apiUri);
     }
-                
+             
     /**
-     * Write config file
+     * Check tokens for expire
      *
      * @return void
      */
-    private function writeConfig(): void
+    public function checkTokens(): void
+    {
+        if (array_key_exists("expires_date", $this->jsonConfig)) {
+            if (time() >= $this->jsonConfig["expires_date"] && $this->jsonConfig["expires_date"] != 0) {
+                $this->getTokensByRefreshToken($this->jsonConfig["refresh_token"]);
+            }
+        }
+    }
+
+    /**
+     * Write config file
+     *
+     * @param  array $jsonResp
+     * @return void
+     */
+    private function writeConfig(array $jsonResp): void
     {
         $this->jsonConfig = [
-            "access_token" => $this->accessToken,
-            "refresh_token" => $this->refreshToken,
-            "expires_in" => $this->tokenExpire,
+            "access_token" => $jsonResp["access_token"],
+            "refresh_token" => $jsonResp["refresh_token"],
+            "expires_in" => $jsonResp["expires_in"],
             "receipt_date" => time(),
             "expires_date" => time() + $this->tokenExpire
         ];
 
         file_put_contents($this->config, json_encode($this->jsonConfig));
-    }
-
-    /**
-     * Setup tokens from json
-     *
-     * @param  object $jsonResp
-     * @return void
-     */
-    private function setUpTokens(array $jsonResp): void
-    {
-        $this->accessToken = $jsonResp["access_token"];
-        $this->refreshToken = $jsonResp["refresh_token"];
-        $this->tokenExpire = $jsonResp["expires_in"];
-
-        $this->writeConfig();
     }
 
     /**
@@ -158,19 +148,21 @@ class AmoapiOAuth
      */
     public function getTokensByCode(string $clientCode): array
     {
-        $jsonResp = $this->httpClient->request("POST", $this->tokenUri, [
-            "client_id" => $this->clientId,
-            "client_secret" => $this->clientSecret,
-            "grant_type" => "authorization_code",
-            "code" => $clientCode,
-            "redirect_uri" => $this->redirectUri
-        ], $this->headers);
-
-        if (!array_key_exists("error", $jsonResp)) {
-            $this->setUpTokens($jsonResp);
+        try {
+            $jsonResp = $this->httpClient->request("POST", $this->tokenUri, [
+                "client_id" => $this->clientId,
+                "client_secret" => $this->clientSecret,
+                "grant_type" => "authorization_code",
+                "code" => $clientCode,
+                "redirect_uri" => $this->redirectUri
+            ], $this->headers);
+        } catch (AmoapiException $e) {
+            throw new AmoapiException($e->getMessage(), $e->getCode(), $e->getPrevious());
         }
 
-        return $jsonResp;
+        $this->writeConfig($jsonResp);
+
+        return $jsonResp ?? [];
     }
     
     /**
@@ -181,19 +173,21 @@ class AmoapiOAuth
      */
     public function getTokensByRefreshToken(string $refreshToken): array
     {
-        $jsonResp = $this->httpClient->request("POST", $this->tokenUri, [
-            "client_id" => $this->clientId,
-            "client_secret" => $this->clientSecret,
-            "grant_type" => "refresh_token",
-            "refresh_token" => $refreshToken,
-            "redirect_uri" => $this->redirectUri
-        ], $this->headers);
-
-        if (!array_key_exists("error", $jsonResp)) {
-            $this->setUpTokens($jsonResp);
+        try {
+            $jsonResp = $this->httpClient->request("POST", $this->tokenUri, [
+                "client_id" => $this->clientId,
+                "client_secret" => $this->clientSecret,
+                "grant_type" => "refresh_token",
+                "refresh_token" => $refreshToken,
+                "redirect_uri" => $this->redirectUri
+            ], $this->headers);
+        } catch (AmoapiException $e) {
+            throw new AmoapiException($e->getMessage(), $e->getCode(), $e->getPrevious());
         }
 
-        return $jsonResp;
+        $this->writeConfig($jsonResp);
+
+        return $jsonResp ?? [];
     }
         
     /**
@@ -264,7 +258,7 @@ class AmoapiOAuth
      */
     public function getAccessToken(): string
     {
-        return $this->accessToken;
+        return $this->jsonConfig["access_token"];
     }
     
     /**
@@ -274,7 +268,7 @@ class AmoapiOAuth
      */
     public function getRefreshToken(): string
     {
-        return $this->refreshToken;
+        return $this->jsonConfig["refresh_token"];
     }
     
     /**
@@ -284,6 +278,6 @@ class AmoapiOAuth
      */
     public function getTokenExpire(): string
     {
-        return $this->tokenExpire;
+        return $this->jsonConfig["expires_in"];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
 namespace Amoapi\Http;
-
+use Amoapi\Exception\AmoapiException;
 use GuzzleHttp\Client;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 
-// TODO: getByID
 
 class AmoapiHttpClient
 {
@@ -22,43 +22,35 @@ class AmoapiHttpClient
         $this->httpClient = new Client([
             'base_uri' => $domain,
             'timeout'  => 3.0,
-            'http_errors' => false
+            'http_errors' => true
         ]);
     }
-
+       
     /**
-     * Check response 
+     * Parse response
      *
      * @param  ResponseInterface $response
      * @return array
      */
-    private function checkResponse(ResponseInterface $response): array
+    private function parseResponse(ResponseInterface $response): array
     {
-        $statusCode = $response->getStatusCode();
-        $jsonResp = json_decode($response->getBody(), true);
+        $bodyContent = (string) $response->getBody();
+        $decodedBody = json_decode($bodyContent, true);
 
-        if ($statusCode < 200 || $statusCode > 204) {
-            if (!empty($jsonResp)) {
-                $jsonError = (array) $jsonResp;
-                $jsonError["error"] = true;
-
-                return $jsonError;
-            }
+        if (
+            $response->getStatusCode() !== 200 
+            && !$decodedBody 
+            && !empty($bodyContent)
+        ) {
+            throw new AmoapiException(
+                "Response body is not json", 
+                $response->getStatusCode()
+            );
         }
 
-        if ($response->getBody()) {
-            if (!empty($jsonResp)) {
-                return (array) $jsonResp;
-            }
-        }
-
-        $jsonError = [];
-        $jsonError["error"] = true;
-        $jsonError["hint"] = "Response body not found";
-
-        return $jsonError;
+        return $decodedBody ?? [];
     }
-   
+
     /**
      * Send request and recive response
      *
@@ -69,11 +61,21 @@ class AmoapiHttpClient
      */
     public function request(string $method, string $uri, array $jsonBody, array $headers): array
     {
-        $response = $this->httpClient->request($method, $uri, [
-            "headers" => $headers,
-            "json" => $jsonBody
-        ]);
+        try {
+            $response = $this->httpClient->request($method, $uri, [
+                "headers" => $headers,
+                "json" => $jsonBody
+            ]);
+        } catch (Exception $e) {
+            throw new AmoapiException($e->getMessage(), $e->getCode(), $e->getPrevious());
+        }
 
-        return $this->checkResponse($response);
+        try {
+            $response = $this->parseResponse($response);
+        } catch (AmoapiException $e) {
+            throw $e;
+        }
+
+        return $response;
     }
 } 
