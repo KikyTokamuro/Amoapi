@@ -9,7 +9,10 @@ use Psr\Http\Message\ResponseInterface;
 
 
 class AmoapiHttpClient
-{
+{    
+    /**
+     * @var Client
+     */
     private $httpClient;
 
     /**

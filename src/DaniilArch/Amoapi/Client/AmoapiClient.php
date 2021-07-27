@@ -15,7 +15,12 @@ use Amoapi\Services\CatalogService;
 use Amoapi\Services\Service;
 
 class AmoapiClient extends AmoapiOAuth
-{
+{    
+    /**
+     * AmoapiClient construct
+     *
+     * @return void
+     */
     public function __construct(
         string $subdomain, 
         string $clientId, 
