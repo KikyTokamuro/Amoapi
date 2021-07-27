@@ -71,7 +71,7 @@ $client = new AmoapiClient(
 );
 ```
 
-config.json:
+tokens.json:
 ```json
 {
     "access_token":"access_token",
@@ -85,6 +85,7 @@ config.json:
 ### Get access and refresh tokens by code
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -93,16 +94,18 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$tokens = $client->getTokensByCode("code"); // array
-
-if (!array_key_exists("error", $tokens)) {
+try {
+    $tokens = $client->getTokensByCode("code"); // array
     print_r($tokens);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get access and refresh tokens by refresh token
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -111,10 +114,11 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$tokens = $client->getTokensByRefreshToken("refreshToken"); // array
-
-if (!array_key_exists("error", $tokens)) {
+try {
+    $tokens = $client->getTokensByRefreshToken("refreshToken"); // array
     print_r($tokens);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
@@ -122,6 +126,7 @@ if (!array_key_exists("error", $tokens)) {
 ### Get 5 leads from 1 page
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -130,23 +135,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 5
 ];
 
-$leads = $client->leads()->getAll($filter); // array
-
-if (!array_key_exists("error", $leads)) {
+try {
+    $leads = $client->leads()->getAll($filter); // array
     print_r($leads);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get lead by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -155,18 +166,24 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
-
-$lead = $client->leads()->getById(28091207); // array
-
-if (!array_key_exists("error", $lead)) {
-    print_r($lead);
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
 }
+
+try {
+    $lead = $client->leads()->getById(28091207); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
+
 ```
 
 ### Update lead
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -175,21 +192,32 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$lead = $client->leads()->getById(28091207); // array
+try {
+    $lead = $client->leads()->getById(28091207); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-if (!array_key_exists("error", $lead)) {
-    $lead["name"] = "new name";
-    $lead["price"] = 1111;
+$lead["name"] = "new name";
+$lead["price"] = 1111;
 
+try {
     print_r($client->leads()->update([$lead])); // array
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Create new lead
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -198,16 +226,25 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $lead = [["name" => "new lead", "price" => 1111]];
 
-print_r($client->leads()->createNew($lead)); // array
+try {
+    print_r($client->leads()->createNew($lead)); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ### Add note to lead by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -216,20 +253,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $note = [
     "note_type" => "common",
     "text" => "test note"
 ];
 
-print_r($client->leads()->addNoteById(28091207, $note))
+try {
+    print_r($client->leads()->addNoteById(28091207, $note));
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ## Tasks
 ### Get 50 tasks from 1 page
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -238,23 +284,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50 
 ];
 
-$tasks = $client->tasks()->getAll($filter); // array
-
-if (!array_key_exists("error", $tasks)) {
+try {
+    $tasks = $client->tasks()->getAll($filter); // array
     print_r($tasks);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Create task for others entity
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -263,7 +315,11 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $task = [
     "task_type_id" => 1,
@@ -274,13 +330,18 @@ $task = [
     "request_id" => "example"
 ];
 
-print_r($client->tasks()->createNew($task));
+try {
+    print_r($client->tasks()->createNew($task));
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ## Contacts
 ### Get all contacts
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -289,23 +350,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$contacts = $client->contacts()->getAll($filter); // array
-
-if (!array_key_exists("error", $contacts)) {
+try {
+    $contacts = $client->contacts()->getAll($filter); // array
     print_r($contacts);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get contact by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -314,18 +381,24 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$contact = $client->contacts()->getById(45552657); // array
-
-if (!array_key_exists("error", $contact)) {
+try {
+    $contact = $client->contacts()->getById(45552657); // array
     print_r($contact);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Update contact
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -334,21 +407,32 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$contact = $client->contact()->getById(28091207); // array
+try {
+    $contact = $client->contact()->getById(28091207); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-if (!array_key_exists("error", $contact)) {
-    $contact["name"] = "new name";
-    $contact["price"] = 1111;
+$contact["name"] = "new name";
+$contact["price"] = 1111;
 
+try {
     print_r($client->contacts()->update([$contact])); // array
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Create new contact
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -357,16 +441,25 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $contact = [["name" => "new contact"]];
 
-print_r($client->contacts()->createNew($contact)); // array
+try {
+    print_r($client->contacts()->createNew($contact)); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ### Add note to contact by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -375,20 +468,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $note = [
     "note_type" => "common",
     "text" => "test note"
 ];
 
-print_r($client->contacts()->addNoteById(28091207, $note))
+try {
+    print_r($client->contacts()->addNoteById(28091207, $note))
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ## Companies
 ### Get all companies
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -397,23 +499,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$companies = $client->companies()->getAll($filter); // array
-
-if (!array_key_exists("error", $companies)) {
+try {
+    $companies = $client->companies()->getAll($filter); // array;
     print_r($companies);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get company by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -422,18 +530,24 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$company = $client->companies()->getById(45607457); // array
-
-if (!array_key_exists("error", $company)) {
+try {
+    $company = $client->companies()->getById(45607457); // array
     print_r($company);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Update company
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -442,20 +556,31 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$company = $client->companies()->getById(45607457); // array
+try {
+    $company = $client->companies()->getById(45607457); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-if (!array_key_exists("error", $company)) {
-    $company["name"] = "update company";
+$company["name"] = "update company";
 
+try {
     print_r($client->companies()->update([$contact])); // array
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Create new company
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -464,16 +589,25 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $company = [["name" => "new company"]];
 
-print_r($client->companies()->createNew($company)); // array
+try {
+    print_r($client->companies()->createNew($company)); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ### Add note to company by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -482,20 +616,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $note = [
     "note_type" => "common",
     "text" => "test note"
 ];
 
-print_r($client->companies()->addNoteById(45607457, $note))
+try {
+    print_r($client->companies()->addNoteById(45607457, $note));
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ## Customers
 ### Get all customers
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -504,23 +647,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$customers = $client->customers()->getAll($filter); // array
-
-if (!array_key_exists("error", $customers)) {
+try {
+    $customers = $client->customers()->getAll($filter); // array
     print_r($customers);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get customer by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -529,18 +678,24 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$customer = $client->customers()->getById(183435); // array
-
-if (!array_key_exists("error", $customer)) {
+try {
+    $customer = $client->customers()->getById(183435); // array
     print_r($customer);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Update customer
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -549,20 +704,31 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$customer = $client->customers()->getById(183435); // array
+try {
+    $customer = $client->customers()->getById(183435); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-if (!array_key_exists("error", $customer)) {
-    $customer["name"] = "update customer";
+$customer["name"] = "update customer";
 
+try {
     print_r($client->customers()->update([$customer])); // array
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Create new customer
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -571,16 +737,25 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $customer = [["name" => "new company"]];
 
-print_r($client->customers()->createNew($customer)); // array
+try {
+    print_r($client->customers()->createNew($customer)); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ### Add note to customer by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -589,20 +764,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $note = [
     "note_type" => "common",
     "text" => "test note"
 ];
 
-print_r($client->customers()->addNoteById(183435, $note));
+try {
+    print_r($client->customers()->addNoteById(183435, $note));
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ## Users
 ### Get all users
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -611,23 +795,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$users = $client->users()->getAll($filter); // array
-
-if (!array_key_exists("error", $users)) {
+try {
+    $users = $client->users()->getAll($filter); // array
     print_r($users);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get user by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -636,12 +826,17 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$user = $client->users()->getById(6928032); // array
-
-if (!array_key_exists("error", $user)) {
+try {
+    $user = $client->users()->getById(6928032); // array
     print_r($user);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
@@ -649,6 +844,7 @@ if (!array_key_exists("error", $user)) {
 ### Get all users roles
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -657,23 +853,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$roles = $client->roles()->getAllRoles($filter); // array
-
-if (!array_key_exists("error", $roles)) {
+try {
+    $roles = $client->roles()->getAllRoles($filter); // array
     print_r($roles);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get role by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -682,12 +884,17 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$role = $client->roles()->getRoleById(56320); // array
-
-if (!array_key_exists("error", $role)) {
+try {
+    $role = $client->roles()->getRoleById(56320); // array
     print_r($role);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
@@ -695,6 +902,7 @@ if (!array_key_exists("error", $role)) {
 ### Get account info
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -703,12 +911,17 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$info = $client->account()->getInfo(); // array
-
-if (!array_key_exists("error", $info)) {
+try {
+    $info = $client->account()->getInfo(); // array
     print_r($info);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
@@ -716,6 +929,7 @@ if (!array_key_exists("error", $info)) {
 ### Get all catalogs
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -724,23 +938,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$catalogs = $client->catalogs()->getAll($filter); // array
-
-if (!array_key_exists("error", $catalogs)) {
+try {
+    $catalogs = $client->catalogs()->getAll($filter); // array
     print_r($catalogs);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get catalog by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -749,18 +969,24 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$catalog = $client->catalogs()->getById(2419); // array
-
-if (!array_key_exists("error", $catalog)) {
+try {
+    $catalog = $client->catalogs()->getById(2419); // array
     print_r($catalog);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Create new catalog
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -769,16 +995,25 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $catalog = [["name" => "new catalog"]];
 
-print_r($client->catalogs()->createNew($catalog)); // array
+try {
+    print_r($client->catalogs()->createNew($catalog)); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ### Update catalog
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -787,20 +1022,31 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$catalog = $client->catalogs()->getById(2419); // array
+try {
+    $catalog = $client->catalogs()->getById(2419); // array
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-if (!array_key_exists("error", $catalog)) {
-    $catalog["name"] = "update catalog";
+$catalog["name"] = "update catalog";
 
+try {
     print_r($client->catalogs()->update([$catalog])); // array
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get all catalog elements
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -809,23 +1055,29 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $filter = [
     "page" => 0,
     "limit" => 50
 ];
 
-$elements = $client->catalogs()->getAllElements(1989, $filter); // array
-
-if (!array_key_exists("error", $elements)) {
+try {
+    $elements = $client->catalogs()->getAllElements(1989, $filter); // array
     print_r($elements);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Get catalog element by id
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -834,18 +1086,24 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$element = $client->catalogs()->getElementById(1989, 953789); // array
-
-if (!array_key_exists("error", $element)) {
+try {
+    $element = $client->catalogs()->getElementById(1989, 953789); // array
     print_r($element);
+} catch (AmoapiException $e) {
+    echo $e;
 }
 ```
 
 ### Add new element to catalog
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -854,16 +1112,25 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
 $element = [["name" => "new element"]];
 
-print_r($client->catalogs()->createNewElement(1989, $catalog));
+try {
+    print_r($client->catalogs()->createNewElement(1989, $catalog));
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
 
 ### Update catalog element
 ```php
 use Amoapi\Client\AmoapiClient;
+use Amoapi\Exception\AmoapiException;
 
 $client = new AmoapiClient(
     "subdomain", 
@@ -872,9 +1139,18 @@ $client = new AmoapiClient(
     "redirect_url",
 );
 
-$client->getTokensByCode("code");
+try {
+    $client->getTokensByCode("code");
+} catch (AmoapiException $e) {
+    echo $e;
+}
 
-$element = $this->client->catalogs()->getElementById(1989, 953789);
+try {
+    $element = $this->client->catalogs()->getElementById(1989, 953789);
+} catch (AmoapiException $e) {
+    echo $e;
+}
+
 $element["name"] = "new name";
 
 // Delete not expected fields
@@ -882,5 +1158,9 @@ unset($element["created_by"]);
 unset($element["updated_by"]);
 unset($element["custom_fields_values"][2]["values"][0]["enum_code"]);
 
-print_r($this->client->catalogs()->updateElement(1989, [$element]));
+try {
+    print_r($this->client->catalogs()->updateElement(1989, [$element]));
+} catch (AmoapiException $e) {
+    echo $e;
+}
 ```
