@@ -7,22 +7,9 @@ use Amoapi\Http\AmoapiHttpClient;
 class CatalogService extends Service
 {
     /**
-     * @var Amoapi\Http\AmoapiHttpClient
-     */
-    private $httpClient;
-    
-    /**
      * @var string
      */
     private $apiUri = "/api/v4/catalogs";
-
-    /**
-     * @var array
-     */
-    protected $headers = [
-        "User-Agent" => "amoCRM/oAuth Client 1.0",
-        "Content-Type" => "application/json" 
-    ];
 
     /**
      * CatalogService construct

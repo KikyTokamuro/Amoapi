@@ -7,23 +7,10 @@ use Amoapi\Http\AmoapiHttpClient;
 class RoleService extends Service
 {
     /**
-     * @var Amoapi\Http\AmoapiHttpClient
-     */
-    private $httpClient;
-    
-    /**
      * @var string
      */
     private $apiUri = "/api/v4/roles";
 
-    /**
-     * @var array
-     */
-    protected $headers = [
-        "User-Agent" => "amoCRM/oAuth Client 1.0",
-        "Content-Type" => "application/json" 
-    ];
-    
     /**
      * RoleService construct
      *

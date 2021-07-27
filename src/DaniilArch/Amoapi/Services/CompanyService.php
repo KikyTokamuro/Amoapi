@@ -7,22 +7,9 @@ use Amoapi\Http\AmoapiHttpClient;
 class CompanyService extends Service
 {
     /**
-     * @var Amoapi\Http\AmoapiHttpClient
-     */
-    private $httpClient;
-    
-    /**
      * @var string
      */
     private $apiUri = "/api/v4/companies";
-
-    /**
-     * @var array
-     */
-    protected $headers = [
-        "User-Agent" => "amoCRM/oAuth Client 1.0",
-        "Content-Type" => "application/json" 
-    ];
     
     /**
      * CompanyService construct

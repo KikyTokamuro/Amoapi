@@ -7,23 +7,10 @@ use Amoapi\Http\AmoapiHttpClient;
 class ContactService extends Service
 {
     /**
-     * @var Amoapi\Http\AmoapiHttpClient
-     */
-    private $httpClient;
-    
-    /**
      * @var string
      */
     private $apiUri = "/api/v4/contacts";
 
-    /**
-     * @var array
-     */
-    protected $headers = [
-        "User-Agent" => "amoCRM/oAuth Client 1.0",
-        "Content-Type" => "application/json" 
-    ];
-    
     /**
      * TaskService construct
      *
