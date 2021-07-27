@@ -116,8 +116,8 @@ class AmoapiOAuth
     {
         if (array_key_exists("expires_date", $this->jsonConfig)) {
             if (
-                time() >= $this->jsonConfig["expires_date"] 
-                && $this->jsonConfig["expires_date"] != 0
+                $this->jsonConfig["expires_date"] != 0
+                && time() >= $this->jsonConfig["expires_date"] 
             ) {
                 $this->getTokensByRefreshToken($this->jsonConfig["refresh_token"]);
             }
