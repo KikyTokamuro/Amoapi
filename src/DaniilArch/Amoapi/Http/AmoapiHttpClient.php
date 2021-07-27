@@ -39,7 +39,8 @@ class AmoapiHttpClient
         $decodedBody = json_decode($bodyContent, true);
 
         if (
-            $response->getStatusCode() !== 200 
+            $response->getStatusCode() !== 200
+            && $response->getStatusCode() !== 204
             && !$decodedBody 
             && !empty($bodyContent)
         ) {
@@ -67,14 +68,9 @@ class AmoapiHttpClient
                 "headers" => $headers,
                 "json" => $jsonBody
             ]);
+            $response = $this->parseResponse($response);
         } catch (Exception $e) {
             throw new AmoapiException($e->getMessage(), $e->getCode(), $e->getPrevious());
-        }
-
-        try {
-            $response = $this->parseResponse($response);
-        } catch (AmoapiException $e) {
-            throw $e;
         }
 
         return $response;
