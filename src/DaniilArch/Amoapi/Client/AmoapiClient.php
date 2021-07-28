@@ -14,6 +14,11 @@ use Amoapi\Services\AccountService;
 use Amoapi\Services\CatalogService;
 use Amoapi\Services\Service;
 
+/**
+ * Class AmoapiClient
+ * 
+ * @package Amoapi\Client
+ */
 class AmoapiClient extends AmoapiOAuth
 {    
     /**

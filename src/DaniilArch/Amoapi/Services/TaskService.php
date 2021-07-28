@@ -4,6 +4,12 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class TaskService
+ * 
+ * @link https://www.amocrm.ru/developers/content/crm_platform/tasks-api Tasks.
+ * @package Amoapi\Services
+ */
 class TaskService extends Service
 {
     /**

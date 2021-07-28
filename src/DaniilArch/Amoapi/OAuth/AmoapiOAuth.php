@@ -5,6 +5,11 @@ namespace Amoapi\OAuth;
 use Amoapi\Http\AmoapiHttpClient;
 use Amoapi\Exception\AmoapiException;
 
+/**
+ * Class AmoapiOAuth
+ * 
+ * @package Amoapi\OAuth
+ */
 class AmoapiOAuth
 {    
     /**

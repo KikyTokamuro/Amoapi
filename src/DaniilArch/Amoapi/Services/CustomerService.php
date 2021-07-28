@@ -4,6 +4,12 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class CustomerService
+ * 
+ * @link https://www.amocrm.ru/developers/content/crm_platform/customers-api Customers.
+ * @package Amoapi\Services
+ */
 class CustomerService extends Service
 {
     /**

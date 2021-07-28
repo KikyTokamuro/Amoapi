@@ -5,6 +5,11 @@ namespace Amoapi\Exception;
 use Exception;
 use Throwable;
 
+/**
+ * Class AmoapiException
+ * 
+ * @package Amoapi\Exception
+ */
 class AmoapiException extends Exception
 {    
     /**

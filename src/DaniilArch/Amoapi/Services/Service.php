@@ -4,6 +4,11 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class Service
+ * 
+ * @package Amoapi\Services
+ */
 abstract class Service {
     /**
      * @var AmoapiHttpClient

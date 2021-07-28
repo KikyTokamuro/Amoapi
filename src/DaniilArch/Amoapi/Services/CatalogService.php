@@ -4,6 +4,12 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class CatalogService
+ * 
+ * @link https://www.amocrm.ru/developers/content/crm_platform/catalogs-api Catalogs.
+ * @package Amoapi\Services
+ */
 class CatalogService extends Service
 {
     /**

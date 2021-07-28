@@ -4,6 +4,12 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class RoleService
+ * 
+ * @link https://www.amocrm.ru/developers/content/crm_platform/users-api Roles.
+ * @package Amoapi\Services
+ */
 class RoleService extends Service
 {
     /**

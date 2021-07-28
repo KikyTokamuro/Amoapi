@@ -4,6 +4,12 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class LeadService
+ * 
+ * @link https://www.amocrm.ru/developers/content/crm_platform/leads-api Leads.
+ * @package Amoapi\Services
+ */
 class LeadService extends Service
 {   
     /**

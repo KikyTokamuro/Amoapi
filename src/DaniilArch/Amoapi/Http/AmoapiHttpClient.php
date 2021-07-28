@@ -8,6 +8,11 @@ use Exception;
 use Psr\Http\Message\ResponseInterface;
 
 
+/**
+ * Class AmoapiHttpClient
+ * 
+ * @package Amoapi\Http
+ */
 class AmoapiHttpClient
 {    
     /**

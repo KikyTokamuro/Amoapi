@@ -4,6 +4,12 @@ namespace Amoapi\Services;
 
 use Amoapi\Http\AmoapiHttpClient;
 
+/**
+ * Class ContactService
+ * 
+ * @link https://www.amocrm.ru/developers/content/crm_platform/contacts-api Contacts.
+ * @package Amoapi\Services
+ */
 class ContactService extends Service
 {
     /**
