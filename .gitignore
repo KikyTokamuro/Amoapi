@@ -3,3 +3,5 @@ todo.md
 vendor/
 .phpunit.result.cache
 tokens.json
+docs
+.phpdoc
