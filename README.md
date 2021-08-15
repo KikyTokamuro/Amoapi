@@ -2,8 +2,31 @@
 
 Tiny lib for [amoCRM API](https://www.amocrm.ru/developers/content/crm_platform/api-reference)
 
+**_This is DEV version of library so Author is not responsible of any damage, both direct and indirect, 
+that may cause using of this library._**
+
+- [Installing](#installing)
 - [What is implemented](#what-is-implemented)
 - [Examples](#examples)
+
+# Installing
+For installing add this to your `composer.json`:
+```json
+"minimum-stability": "dev",
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "git@github.com:KikyTokamuro/Amoapi"
+    }
+],
+"require": {
+    "kikytokamuro/amoapi": "dev-origin/dev"
+}
+```
+And run command:
+```
+composer require kikytokamuro/amoapi
+```
 
 # What is implemented
 - [Tokens](#markdown-header-tokens)
