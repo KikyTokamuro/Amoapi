@@ -1,22 +1,23 @@
 {
-    "name": "daniilarch/amoapi",
+    "name": "kikytokamuro/amoapi",
     "description": "Lib for AMOCRM API",
+    "version": "0.1",
     "type": "library",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Amoapi\\": "src/DaniilArch",
-            "Amoapi\\Exception\\": "src/DaniilArch/Amoapi/Exception",
-            "Amoapi\\Client\\": "src/DaniilArch/Amoapi/Client",
-            "Amoapi\\Http\\": "src/DaniilArch/Amoapi/Http",
-            "Amoapi\\OAuth\\": "src/DaniilArch/Amoapi/OAuth",
-            "Amoapi\\Services\\": "src/DaniilArch/Amoapi/Services"
+            "Amoapi\\": "src/KikyTokamuro",
+            "Amoapi\\Exception\\": "src/KikyTokamuro/Amoapi/Exception",
+            "Amoapi\\Client\\": "src/KikyTokamuro/Amoapi/Client",
+            "Amoapi\\Http\\": "src/KikyTokamuro/Amoapi/Http",
+            "Amoapi\\OAuth\\": "src/KikyTokamuro/Amoapi/OAuth",
+            "Amoapi\\Services\\": "src/KikyTokamuro/Amoapi/Services"
         }
     },
     "authors": [
         {
-            "name": "DaniilArch",
-            "email": "a.daniil@f5.com.ru"
+            "name": "KikyTokamuro (Daniil Archangelsky)",
+            "email": "kiky.tokamuro@yandex.ru"
         }
     ],
     "require-dev": {
